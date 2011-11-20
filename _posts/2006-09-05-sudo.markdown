@@ -1,0 +1,37 @@
+---
+layout: post
+title: "Sudo"
+date: 2006-09-05 05:42
+comments: true
+categories: [permissions, sudo, terminal, unix]
+---
+
+O comando **sudo** (__SUperuser DO__) fornece à um usuário comum permissão de execução para comandos restritos ao usuário __root__. Dessa forma torna-se possível, por exemplo, instalar programas sem a necessidade de se logar como __root__.
+
+# Configuração
+
+O arquivo de configuração do **sudo** é __/etc/sudoers__ e existe o comando **visudo** para editar o arquivo, já que o arquivo vem com permissão somente de leitura:
+
+    # ls -l /etc/sudoers
+    -r--r----- 1 root root 349 2007-01-24 15:51 /etc/sudoers
+
+E é necessário mudar a permissão para editá-lo e para usar o comando **sudo** o arquivo de configuração deve ter as mesmas permissões iniciais, além disso o próprio comando **visudo** verifica a sintaxe do arquivo indicando se houver erros.
+
+Digite **visudo** como usuário _root_ no terminal e insira a seguinte linha, com as devidas alterações:
+
+    usuario host = NOPASSWD: /end/do/comando
+
+No qual:
+* _usuario_ é o usuário que terá; permissão para executar o comando, há ainda a possibilidade de informar o grupo ao qual o usuário pertence, neste caso adicione ``%``, como no exemplo que é colocado no grupo _admin_:
+
+    %admin ALL=NOPASSWD: ALL
+
+* _host_ nome do computador onde o comando poderá ser executado (``ALL`` para todos);
+* ``NOPASSWD`` evita que o usuário tenha que confirmar sua própria senha ao executar o comando através do **sudo** (o contrário é ``PASSWD``);
+* _/end/do/comando_ localização do comando, ou pode ser usado a palavra ``ALL`` para todos os comandos (tome cuidado com isso).
+
+Pronto saia normalmente do arquivo, caso haja erro o **visudo** verifica o arquivo e informa do erro de sintaxe e é só teclar _e_ e **<ENTER>** para editar novamente e corrigir o erro.
+
+Com tudo isso feito somente falta o ensejo ou um teste para que o usuário colocado no arquivo de configuração do **sudo** ou um usuário pertencente ao grupo informado execute o comando:
+
+    % sudo command

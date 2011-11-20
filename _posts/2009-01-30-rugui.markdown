@@ -1,0 +1,39 @@
+---
+layout: post
+title: "Rugui"
+date: 2009-01-30 11:33
+comments: true
+categories: [rails, ruby]
+---
+
+[RuGUI](http://rugui.org/) é um framework para desenvolvimento de interface GTK usando o [Ruby](http://www.ruby-lang.org/pt/) como linguagem.
+
+No RuGUI pode-se desenhar as janelas usando o [Glade](http://glade.gnome.org/).
+
+Espero que o que o Rails é para desenvolvimento web em Ruby o RuGUI seja para desenvolvimento GTK com Ruby.
+
+# Simples Projeto
+
+Para criar um projeto:
+
+    dmicpd102% rugui myapp
+    Generating application myapp on /home/dmitry/Desktop/teste
+    Using TestUnit for generated application
+    Application myapp generated in /home/dmitry/Desktop/teste
+
+
+Para executar:
+
+    dmicpd102% ./myapp/app/main.rb
+    2009-01-30 14:37:50 (INFO) (RuGUI::Initializer) Starting RuGUI application with development environment...
+    2009-01-30 14:37:50 (INFO) (RuGUI::Initializer) RuGUI application configurations loaded.
+    2009-01-30 14:37:50 (INFO) (MainController) Starting the application through MainController.
+    Hello button clicked.
+    2009-01-30 14:37:53 (INFO) (MainController) Exiting the application through MainController.
+    2009-01-30 14:37:53 (INFO) (MainController) Application finished.
+
+No exemplo acima não foi feita nenhuma alteração de código ou de desenho no Glade, neste caso é mostrado a seguinte janela:
+
+![Hello Word - Ruby](http://lh3.ggpht.com/_5r9AMhQKuQY/SYM5wJZHhjI/AAAAAAAAIkM/ETCGtd1U3RE/s400/Captura_de_tela-Hello%20World%21.png)
+
+Agora pode se divertir criando interfaces com o Ruby!

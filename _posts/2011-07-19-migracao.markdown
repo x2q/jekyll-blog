@@ -1,0 +1,163 @@
+---
+layout: post
+title: "Migração"
+date: 2011-07-19 11:20
+comments: true
+categories: [ruby, activerecord]
+---
+
+Atualmente estou num projeto de migração de dados, ao invés de fazer dump de banco nos resolvemos "esqueçer" o banco e iniciar um novo projeto.
+
+Após a conclusão deste projeto nos vamos "importar" o banco… Não mudaremos uma coluna ou tabela no banco de dados "antigo".
+
+# Criando o Projeto para Migrar
+
+Vamos começar pelo Gemfile:
+
+    source "http://rubygems.org"
+    
+    gem 'rake'
+    gem 'activerecord', '3.0.0', :require => 'active_record'
+    gem 'mysql', '2.8.1'
+
+Nos vamos usar o Rake para migrar a base de dados, o activerecord será usado juntamente com o mysql (ou sqlite, caso vc queira somente testar) para pegar os dados e passar para o outro banco.
+
+Apenas para migração de dados é somente isso (por enquanto) que precisamos.
+
+# Inicializando o DB e os "Models"
+
+No meu caso eu criei o arquivo ``db.rb`` na raiz do projeto para inicializar o banco de dados e carregar os models:
+
+    require 'active_record'
+
+    class MigrateDb < ActiveRecord::Base
+    end
+
+    MigrateDb.establish_connection :adapter => 'mysql',
+      :database => 'portal',
+      :username => 'root',
+      :password => '',
+      :timeout => 5000
+
+    Dir['./models/*.rb'].each { |f| require f }
+
+Veja a criação da classe ``MigrateDb``, ela será usada somente neste projeto, para não dar conflito de conexão com o ActiveRecord do projeto novo, caso a migração ocorra para outro tipo de banco como o mongodb ou couchdb, não seria necessario isto.
+
+Ao invés de criar este arquivo vc poderia me questionar de o pq não adicionei logo ao ``Rakefile``, já que usarei tarefa rake para migrar. São duas as necessidade de não adicionar direto no ``Rakefile``:
+
+* Pode-se adicionar a linha de require dentro do ``Rakefile``;
+* Para abrir um "rails console" você usa: ``bundle exec -r ./db.rb`` e pronto o irb já vai carregar com o "banco";
+
+# Rakefile
+
+    require 'bundler/setup'
+    require 'rake'
+    require File.dirname(__FILE__)+'/db'
+    Dir[ [File.dirname(__FILE__), 'lib', 'tasks'].join('/') + '**/*'].each { |task| load task }
+
+O ``Rakefile`` vai fazer um require no arquivo de inicialização do banco de dados (``db.rb``) e nas tarefas em ``lib/tasks/``.
+
+# Construindo os models
+
+Ao invés de descender do ``ActiveRecord::Base``, nossos models desenderá do ``MigrateDb``:
+
+    class Secao < MigrateDb
+    end
+
+
+O ActiveRecord funciona com menos esforço quando você segue o padrão dele, mas caso vc tenha uma tabela com outro nome use o ``set_table_name``:
+
+    class Secao < MigrateDb
+      set_table_name 'portal_secao'
+    end
+
+Uma outra dica rápida seria criar comandos ao invés de decorrar a base de dados:
+
+    class Postagem < MigrateDb
+      set_table_name 'portal_postagens'
+
+      def cidade
+        Cidade.find(cidade_id)
+      end
+
+      def cidade_id
+        self.cod_cidade
+      end
+    end
+
+Se você está acostumado com o "padrão ActiveRecord" seria melhor vc criar estes dois métodos, uma vez que nossa base de dados deve se conservar o mais somente leitura quanto possível, não seria necessário métodos como ``cidade=(cidade)``.
+
+Por fim eu recomendo que seja criado um método ``migrate_attrs`` (ou qualquer outro nome) que retorna um hash somente com os dados necessários para a nova base de dados:
+
+    class Usuario < MigrateDb
+      set_table_name 'portal_usuario'
+
+      def migrate_attrs
+      # Dados como :endereco, :cep, não será necessário
+        {
+          :email => email,
+          :name => nome,
+          :created_at => data_cadastro,
+          :cell_phone => celular,
+          :login => codinome,
+          :phone => telefone
+        }
+      end
+    end
+
+# E o "Banco Novo"?
+
+Bom… eu faço um require do projeto novo "inteiro" para poder usar o banco, esta é a melhor forma para não ter que ficar duplicando os projetos (ou somente os models).
+
+Há um problema no require: o Gemfile do projeto novo, vc ainda vai precisar copiar e colar ele para dentro do Gemfile do projeto de migração:
+
+    source "http://rubygems.org"
+
+    gem 'rake'
+    gem 'activerecord', '3.0.0', :require => 'active_record'
+    gem 'mysql', '2.8.1'
+
+    # Gemfile do novo projeto
+    gem 'rails', '3.0.0'
+    gem 'devise', :git => 'git://github.com/plataformatec/devise.git'
+    gem 'sqlite3' # Ainda estou somente testando a migração dos dados
+
+Para fazer este require eu adiciono no arquivo rake (por exemplo: ``lib/tasks/db_import.rake``):
+
+    require File.expand_path("../../../../novo_projeto_rails/config/environment", __FILE__)
+
+Logo abaixo desta linha eu coloco a conexão do banco de dados do projeto novo:
+
+    ActiveRecord::Base.establish_connection :adapter => 'sqlite3',
+      :database => 'db/development.sqlite3',
+      :pool => 5,
+      :timeout => 5000
+
+# Tarefa rake
+
+agora basta completar a(s) tarefa(s) rake:
+
+    # encoding utf-8
+    require File.expand_path("../../../../novo_projeto_rails/config/environment", __FILE__)
+
+    require File.dirname(__FILE__)+'/../../db.rb'
+
+    ActiveRecord::Base.establish_connection :database => 'portal', :username => 'root', :password => '', :adapter => 'mysql'
+
+    namespace :db do
+      task :import do
+        Usuario.all.each do |usuario|
+          User.create usuario.migrate_attrs
+        end
+      end
+    end
+
+# Rodando a Importação
+
+Vá no projeto novo e execute a migração da base de dados.
+
+    bundle exec rake db:migrate
+
+E no projeto de migração execute:
+
+    bundle exec rake db:import

@@ -1,0 +1,23 @@
+---
+layout: post
+title: "Git Clone"
+date: 2009-03-20 10:16
+comments: true
+categories: [git]
+---
+
+Alguns usuários (corporativos, principalmente) usam conexão de Internet compartilhada e por conta disso estão fadados a encontrar a seguinte mensagem de erro:
+
+    cpd102[pts/0]% git clone git://github.com/dmitrynix/Scaffolds_example.git
+    Initialized empty Git repository in /tmp/Scaffolds_example/.git/
+    github.com[0: 65.74.177.129]: errno=No route to host
+    fatal: unable to connect a socket (No route to host)
+
+Por conta disso o git permite que seja feito "clones" através do protocolo http. Basta trocar o ``git://`` por ``http://``:
+
+    cpd102[pts/0]% git clone http://github.com/dmitrynix/Scaffolds_example.git
+    Initialized empty Git repository in /tmp/Scaffolds_example/.git/
+    Getting alternates list for http://github.com/dmitrynix/Scaffolds_example.git
+    Getting pack list for http://github.com/dmitrynix/Scaffolds_example.git
+    [ ... ]
+

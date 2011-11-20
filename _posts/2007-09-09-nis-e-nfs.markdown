@@ -1,0 +1,158 @@
+---
+layout: post
+title: "NIS e NFS"
+date: 2007-09-09 12:16
+comments: true
+categories: [client, daemon, nfs, nis, server]
+---
+
+O NIS (_Network Information Server_, i. e., _Servidor de Informação em Rede_) é uma ferramenta de rede que permite distribuir informações (e somente) de um servidor para um ou vários clientes.
+
+Entende-se por informações, para usuários e grupos: nomes, membros de determinado grupo, senhas, shell utilizado, comentários e caminho para o diretório home.
+
+Como servidor de informações o NIS não envia para o cliente seus arquivos pessoais (diretório home), esta é tarefa do NFS (_Network File System_), i. e., _Sistema de Arquivos em Rede_).
+
+Para estes exemplos foi usado o GNU/Linux Debian etch 4.
+
+# NFS
+
+Iniciando a configuração pelo servidor NFS para que quando um usuário fizer login ele não fique sem lugar para escrever.
+
+## Servidor
+
+Para o NFS é necessário exportar o diretório para que ele possa ser montado no cliente quase da mesma forma como se fosse um HD local. Uma configuração simples seria exportar o diretório /home/, para tal deve-se colocar no arquivo de configuração /etc/exports, do servidor, as seguintes linha, como a maioria dos arquivos de configuração as linha com ``#``:
+
+    /home/ 10.0.0.0/255.255.255.0(rw,no_root_squash,sync)
+
+Veja maiores configurações com o comando:
+
+    # man exports
+
+E reiniciar o serviço NFS:
+
+    # /etc/init.d/nfs-kernel-server restart
+    
+    Stopping NFS kernel daemon: mountd nfsd.
+    Unexporting directories for NFS kernel daemon....
+    Exporting directories for NFS kernel daemon....
+    Starting NFS kernel daemon: nfsd mountd.
+
+## Cliente
+
+Para o cliente é usado o arquivo /etc/fstab que é o mesmo arquivo usado para outros pontos de montagem, veja um exemplo:
+
+    10.0.0.1:/home  /home            nfs    defaults        0       0
+
+# NIS
+
+## Servidor
+
+Para transportar as informações para clientes vamos inicialmente editar o arquivo /etc/hosts, veja o exemplo:
+
+    127.0.0.1	localhost.network.com	localhost
+    10.0.0.1	ypserver.network.com	ypserver
+
+Edite também o arquivo /etc/hostname com o nome de host do servidor:
+
+    ypserver
+
+Agora reinicie o nome de host, para que o nome de host fique fixo, com um dos dois comandos abaixo:
+
+    # hostname ypserver
+
+ou
+
+    # /etc/init.d/hostname.sh stop
+    # /etc/init.d/hostname.sh start
+
+Edite o arquivo /etc/defaultdomain somente com o nome de domínio:
+
+    network.com
+
+Agora precisamos dizer ao NIS que este é um servidor NIS modificando as variáveis NISSERVER e NISCLIENT no arquivo /etc/default/nis<:
+
+    NISSERVER=master
+    NISCLIENT=false
+
+Vá até o diretório /usr/lib/yp/ para criar os maps e validar as configurações do servidor:
+
+    # cd /usr/lib/yp/
+    # ./ypinit -m
+
+    At this point, we have to construct a list of the hosts which will run NIS
+    servers.  ypserver is in the list of NIS server hosts.  Please continue to add
+    the names for the other hosts, one per line.  When you are done with the
+    list, type a &lt;control D&gt;.
+        next host to add:  ypserver
+        next host to add:  <control>+d
+    The current list of NIS servers looks like this:
+    
+    ypserver
+    Is this correct?  [y/n: y]  y
+    We need a few minutes to build the databases...
+    Building /var/yp/network.com/ypservers...
+    gethostbyname(): Connection timed out
+    Running /var/yp/Makefile...
+    make[1]: Entrando no diretório `/var/yp/network.com'
+    Updating passwd.byname...
+    Updating passwd.byuid...
+    Updating group.byname...
+    Updating group.bygid...
+    Updating hosts.byname...
+    Updating hosts.byaddr...
+    Updating rpc.byname...
+    Updating rpc.bynumber...
+    Updating services.byname...
+    Updating services.byservicename...
+    Updating netid.byname...
+    Updating protocols.bynumber...
+    Updating protocols.byname...
+    Updating netgroup...
+    Updating netgroup.byhost...
+    Updating netgroup.byuser...
+    Updating shadow.byname...
+    make[1]: Saindo do diretório `/var/yp/network.com'
+    
+    ypserver has been set up as a NIS master server.
+    
+    Now you can run ypinit -s ypserver on all slave server.
+
+### Configuração Extra: Restringindo a Rede
+
+Uma configuração extra pode ser feita no arquivo /etc/ypserv.securenets colocando nele a máscara de rede e o endereço da rede que terá permissão de acesso ao servidor:
+
+    255.0.0.0 127.0.0.0
+    255.255.255.0 10.0.0.0
+
+## Cliente
+
+Edite o arquivo /etc/yp.conf:
+
+    ypserver 10.0.0.1
+
+Adicione ao final dos arquivos, /etc/passwd:
+
+    +::::::
+
+/etc/group:
+
+    +:::
+
+/etc/shadow:
+
+    +::::::::
+
+e /etc/gshadow:
+
+    +:::
+
+Lembre-se de que o arquivo /etc/default/nis deve ter as variáveis desta forma para que seja configurado para cliente:
+
+    NISSERVER=false
+    NISCLIENT=true
+
+Por fim reinicie com:
+
+    # /etc/init.d/nis restart
+
+Atualizado em 01 de Junho de 2008.

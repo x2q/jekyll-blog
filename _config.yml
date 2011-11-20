@@ -1,0 +1,4 @@
+destination: ./public
+markdown: rdiscount
+permalink: "/:title/"
+exclupe: Gemfile, Gemfile.lock

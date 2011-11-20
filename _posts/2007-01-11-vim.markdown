@@ -1,0 +1,270 @@
+---
+layout: post
+title: "Vim"
+date: 2007-01-11 05:46
+comments: true
+categories: [editor, linux, terminal, tools, unix, vim]
+---
+
+Para configurar seu sistema em grande parte é preciso editar arquivos de texto que ficam comumente em _/etc_. O **vi** (_Visual Interface_) é um editor de textos puro usado em larga escala.
+
+Texto puro: É um texto sem formatação.
+
+Em evolução ao **vi** surgiu o **vim** (_iMproved Vi_ - _VI Melhorado_). O **vim** e o **vi** se confundem por isso é comum que pensem estar usando o **vi** quando na verdade usa-se o **vim**.
+
+Aqui procurarei mostrar o básico da edição de textos, o que ambos tem, claro, e o aperfeiçoamento contido no **vim**.
+
+# Modos de Operação
+
+* _Modo de Comando_: as teclas do teclado são comandos para serem usados na edição este é o modo ativo quando o programa é chamado;
+* _Modo de Inserção_: o teclado tem características para inserção do texto este modo é identificado por ``-- INSERT --`` no **vim** e **gvim** - modo gráfico do **vim** - já o **vi** não apresenta nenhuma indicação.
+
+Para ir do modo de comando para o modo de inserção tecle:
+
+* ``i`` para inserir na posição atual; a inicia a inserção após o cursor;
+* ``I`` no início da linha;
+* ``A`` no final da linha;
+* ``o`` na linha abaixo;
+* ``O`` inserção na linha acima;
+* ``r`` substitui um caractere;
+* ``R`` inicia a inserção substituindo os caracteres.
+
+# Movendo
+
+Além de poder usar as teclas e possível usar as teclas ``h``, ``j``, ``k``, ``l``, como mostrado abaixo:
+
+         k                             para cima
+    h          l          esquerda                   direita
+         j                             para baixo
+
+Ao contrário de hoje o **vi** não podia usar as setas do teclado.
+
+Ainda existem movimentações extras ou como alguns preferem dizer saltos:
+
+* ``0`` (zero) vai para o início da linha;
+* ``$`` para o final da linha;
+* ``gg`` para a primeira linha;
+* ``G`` para a última linha (final do arquivo);
+* ``13G`` ou ``:13`` vai para a linha 13;
+* ``w`` para a próxima palavra, repetição: ``2w``;
+* ``b`` para a palavra anterior, repetição: ``2b``.
+
+# Abrir Arquivo
+
+A forma mais comum de abrir arquivo é informar em linha de comando o nome do arquivo:
+
+    % vim ~/me.txt
+
+Mesmo que o arquivo não exista o programa encarrega-se de criá-lo.
+
+Para ainda incluir um comando do vim assim que abrir o arquivo use ``+`` seguido do comando:
+
+    % vim +"syntax on" code.c
+
+    % vim +/gvim vim.htm
+
+Pode-se ainda abrir um arquivo quando primeiro chama-se o vim sem parâmetro que informe o arquivo ou mesmo quando um arquivo já estiver aberto, comando ``:e arquivo_para_abrir`` e para criar um arquivo novo use ``:enew``.
+
+## Vários Arquivos
+
+Quando o **vim** abre vários arquivos, seja em linha de comando, com o comando ``:e`` ou com o comando ``:enew``, é possível pular entre eles usando ``:n`` (``:bn`` ou ``:next``) para próximo e ``:N`` (``:bp`` ou ``:previous``) para retroceder, vale lembrar que o programa pula do último para o primeiro e do primeiro para o último.
+
+## Lendo a Entrada por Redirecionamento
+
+É muito usado o redirecionamento em linha de comando o **vim** tem a opção de abrir o que for redirecionado como se fosse um arquivo, basta acrescentar ``-``, veja o exemplo:
+
+    % ps aux | vim -
+
+Não somente para linha de comando de um ``shell``, mas também para entrada diretamente do **vim**: com o comando ``:r!`` como em:
+
+* ``:r!ps aux``;
+* ``:r!ls ~/bin``;
+* ``:r!cat ~/me.txt``;
+* ``:r!find ~/bin -type f``.
+
+# Sair e Salvar
+
+Para sair digite no modo de comandos ``:q``, quando não há alterações para salvar. Caso haja alterações esse comando não sai, apenas alerta que o arquivo possui alterações para serem salvas e informa que ``:q!`` sai sem salvar.
+
+Salvar: ``:w``, após isso é possível sair do programa, sem a mensagem de erro anteriormente mencionada. Existe a combinação dos dois ``:wq`` que salva e depois sai. Ainda é permitido salvar como: ``:w nome.txt``.
+
+# Manipulando Texto
+
+## Apagando
+
+Apesar de poder usar ``<backspace>`` e ``<delete>`` para apagar existem outras formas para apagar, agilizando o trabalho.
+
+Veja abaixo as formas mais comuns, lembre-se de que o **vi** permite a inserção de números para formar a repetição a favor da agilização do trabalho.
+
+
+* ``x`` apaga a direita do cursor; repetição: ``10x``;
+* ``X`` apaga a esqueda, vale a repetição ``10X``;
+* ``dd`` apaga a linha inteira;
+* O comando ``d`` funciona com os saltos mencionados acima, como ``dw``, apaga até a próxima palavra ou ``dfs``, apaga até encontrar a letra ``s``;
+* ``D`` apaga de onde está até o final da linha, equivale a ``d$``;
+
+## Troca (Substituição)
+
+Apesar de poder excluir uma palavra e depois incluir outra no lugar o comando ``cw`` tem a capacidade de substituir uma palavra pela que se segue, como no exemplo: existe a palavra ``programa`` e quer substituir por ``script``, basta colocar o cursor no ``p`` de programa e digitar ``cwscript`` no modo de comando.
+
+Caso seja um único caractere que precise ser trocado existe a opção de usar o comando ``r``, exemplo: ``data`` no lugar de ``date``, solução é colocar o cursor em cima de ``a`` e teclar em modo de comando ``re``.
+
+Um bom uso de conjunto de comandos é para o exemplo seguinte: a palavra ``fiel`` no lugar de ``file`` a junção ``xp`` resolve o problema colocando o cursor sobre a letra ``e`` e teclando o comando; esta união vem de ``x`` apagar e ``p`` colar que apaga e cola o caractere.
+
+Para substituir uma palavra no texto inteiro (modo de comando):
+
+    :%s/palavraantiga/palavranova/g
+
+## Mudar a Caixa do Texto
+
+Ao usar o **vim** no modo visual (teclando ``v`` em modo de comando) pode-se mudar uma letra de maiúscula para minúscula e vice-versa (ou versa-vice, como preferir), já com o modo visual ativado selecione o trecho com as setas ou com qualquer outro comando de pulo e tecle ``U`` para tornar maiúsculo ou tecle ``u`` para tornar minúsculo.
+
+Quando for somente uma palavra use estes comandos em modo de comando quando estiver em qualquer parte da palavra: ``gUw`` para maiúsculo ou ``guw``.
+
+## Formatação
+
+A formatação de um texto puro restringe-se a alinhamento: ``:left``, ``:center`` e ``:right``; para formatar uma linha inteira em esquerda, centro e direita, respectivamente.
+
+# Busca
+
+Para fazer buscas em um texto é em modo de comando ``/palavra`` que procura do texto para frente; repetir as buscas com ``n`` ou para repetir a busca inversamente ``N``.
+
+A busca por palavra que está do cursor para trás é ``?palavra`` da mesma forma vale ``n`` e ``N``.
+
+Quando digitado / para busca há alguns caracteres que tem outro significado:
+
+* ``ˆ`` início da linha;
+* ``$`` final de linha;
+* ``.`` único caractere;
+* ``\&lt;`` início de palavra;
+* ``\&gt;`` final de uma palavra.
+
+Buscas com um simples caractere faz-se com ``fa``, para procurar adiante, com repetição como em ``5fa``,  e ``Fa`` procura atrás do cursor, também vale a repetição: ``5Fa``.
+
+# Registros
+
+Registro é uma forma de armazenar um conjunto de comandos para usá-los repetitivamente.
+
+Uso:
+
+* Inicia a gravação com ``ql`` em modo de comando, no qual ``l`` deve ser substituído por uma letra de ``a`` a ``z``;
+* Indica os comandos e as inclusões e termina a gravação com ``&lt;esc&gt;``;
+* Uso do registro com ``3@l``, no qual ``3`` é o número de repetições que deve ser feita e ``l`` a letra ao qual o registro ficou armazenado.
+
+Exemplo:
+
+Uma parte do script deve ficar assim:
+
+    echo -e "-d            Exibe na saída somente os diretórios;"
+    echo -e "--version     Mostra a versão;"
+    echo -e "--help        Mostra esta ajuda;"
+
+Mas o início é:
+
+    -d            Exibe na saída somente os diretórios
+    --version     Mostra a versão
+    --help        Mostra esta ajuda
+
+Primeiro grava-se o registro, vamos gravar na letra s, após teclar ``<esc>`` para ir para o modo de comando as exatas teclas são:
+
+    qs0iecho -e "<esc>$a;"<esc>Jq
+
+Para melhor compreensão vou mostra separados em partes lógicas:
+
+    qs              para iniciar a gravação
+    0               para ir para o início da linha
+    i               inicia o modo de inserção
+    echo -e "       os caracteres de início da linha
+    <esc>		para ir para o modo de comando
+    $               para ir para o final da linha
+    a               inicia a gravação depois do cursor
+    ;"              introduz os caracteres do final da linha
+    <esc>		para ir para modo comando
+    J               para ir para a próxima linha
+    q               para terminar a gravação
+
+Após a gravação o registro deve ser aplicado na linha ainda sem qualquer alteração o comando ``@s``, neste exemplo apliquei com ``2@s`` para executar duas vezes.
+
+As mesmas marcas podem ser usadas em outros arquivos, desde que o arquivo _~/.viminfo_ não seja apagado.
+
+# Marcas
+
+Uma marca grava a linha para que possa ser acessada posteriormente.
+
+Seu uso é bastante simples, para marcar uma linha basta usar: ``ma``, no qual ``a`` pode ser substituído por outros caracteres.
+
+O acesso ou o pulo para a marca é feito com o caractere ``'`` (acento agudo ou aspa simples) como em: ``'a``.
+
+Todas as marcas pode sem vistas com o comando ``:marks``.
+
+# Arquivo de Configuração ~/.vimrc
+
+Somente algumas poucas configurações que chamaram minha atenção.
+
+Quem costuma a prender o dedo no ``<shift>`` comumente tem retornado um erro quando se depara com ``:Q`` já que o **vim** como grande parte dos comandos é sensível a caixa, como alternativa pode-se criar o que no shell é um alias de comando, incluindo esta linha:
+
+    cab W w
+    cab Q q
+    cab WQ wq
+    cab Wq wq
+
+As linhas são quebradas por padrão para a visualização, esta linha desabilita:
+
+    set nowrap
+
+O ``gvim`` configura o título automaticamente, no , por exemplo, ``xterm`` com o **vim** isso precisa ser habilitado com a adição de:
+
+    set title
+
+Perdido com os parênteses a linha:
+
+    setlocal sm
+
+Informa ao fechamento de um parênteses, chave e/ou colchete onde este foi iniciado e soa um beep quando não encontra seu início.
+
+Se não quer perder nenhum parêntese, colchete ou chave a linha abaixo fecha automanticamente logo que é aberto; não costumo usá-la, mas pode lhe ser útil:
+
+    imap ( ()<esc>i
+    inoremap ( ()<esc>i
+    inoremap { {<Char-13>}<esc>i
+    inoremap [ []<esc>i
+
+Para quem costuma programar com o **vim** digitar ``:syntax on`` toda vez que é iniciado ou colocar ``+"syntax on"`` na linha de comando é enfadonho principalmente quando tem que abrir várias vezes e vários arquivos, a solução é colocar simplesmente ``syntax on`` no arquivo.
+
+O ``<tab>`` quando teclado imprime por padrão 8 espaços, isso pode ser configurado usando:
+
+    setlocal tabstop=8
+
+Com a inclusão de algo com este padrão ``map! 'a á`` contorna o problema de acentuação; seu uso é simples: quando for digitado ``'a`` é imediatamente substituído por ``á``. Como ainda não encontrei um editor _html_ que me agrade, estas linha são bastantes úteis para mim.
+
+    map! 'a &amp;aacute;
+    map! 'A &amp;Aacute;
+    map! ~a &amp;atilde;
+    map! ~A &amp;Atilde;
+    map! `a &amp;agrave;
+    map! `A &amp;Agrave;
+    map! ^a &amp;acirc;
+    map! ^A &amp;Acirc;
+    map! 'e &amp;eacute;
+    map! 'E &amp;Eacute;
+    map! ^e &amp;ecirc;
+    map! ^E &amp;Ecirc;
+    map! 'i &amp;iacute;
+    map! 'I &amp;Iacute;
+    map! 'o &amp;oacute;
+    map! 'O &amp;Oacute;
+    map! ~o &amp;otilde;
+    map! ~O &amp;Otilde;
+    map! ^o &amp;ocirc;
+    map! ^O &amp;Ocirc;
+    map! 'u &amp;uacute;
+    map! 'U &amp;uacute;
+    map! "u &amp;uuml;
+    map! "U &amp;Uuml;
+    map! ,c &amp;ccedil;
+    map! ,C &amp;Ccedil;
+    map! ,e &amp;amp;
+    map! ,n &amp;lt;
+    map! ,m &amp;gt;
+
+Atualizado em 30 de Junho de 2009

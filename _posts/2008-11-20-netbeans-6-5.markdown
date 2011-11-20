@@ -1,0 +1,30 @@
+---
+layout: post
+title: "NetBeans 6.5"
+date: 2008-11-20 06:07
+comments: true
+categories: [netbeans, software]
+---
+
+Por e-mail recebi ontem, e vi hoje, que já está disponível a versão 6.5 do NetBeans.
+
+O download pode ser feito em: [http://www.netbeans.org/downloads/index.html](http://www.netbeans.org/downloads/index.html), tem versão para Linux (instalação por shell script) e em português.
+
+Para instalar use:
+
+    ubuntu% sudo sh /onde/esta/o/arquivo/netbeans-6.5-ml-ruby-linux.sh
+    [sudo] password for dmitry:
+
+É necessário desinstalar a versão antiga ou a dos repositórios do Ubuntu para poder ter somente uma, pois uma ou mais versões podem coexistir e abrir ao mesmo tempo.
+
+Para desinstalar marque para remoção o netbeans no Synaptic ou use como abaixo caso tenha baixado do site do Netbeans:
+
+    ubuntu% sudo /usr/local/netbeans-6.1/uninstall.sh
+
+Surpreendeu-me que podem coexistir duas versões do NetBeans: havia instalado o pacote deb do Ubuntu e instalei a versão mais nova ambas abriram ao mesmo tempo!
+
+Nota:
+
+A versão 6.1 do NetBeans para Ruby tem o instalador de 29 MB e instalação de 112 MB;
+
+A versão 6.5 também para Ruby tem o instalador de 58 MB e instalação de 152 MB e mais 40 MB para o GlassFish.

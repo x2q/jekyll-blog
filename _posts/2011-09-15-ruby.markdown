@@ -1,0 +1,274 @@
+---
+layout: post
+title: "Ruby"
+date: 2011-09-15 22:27
+comments: true
+categories: [ruby]
+---
+Vez ou outra aparece alguém perguntando, ou melhor, pedindo "ensina
+rails?".
+
+Bom a linguagem e framework da moda inspira a muitos e as pessoas creem
+que vão do dia para noite: fazer o próximo imenso programa que todo mundo
+vai usar e vai pagar por isso e que vai ficar milionário.
+
+Vou logo avisando, antes de você pegar projeto para fazer com rails estude
+muito o framerowk e principalmente a linguagem Ruby.
+
+Nos tópicos abaixo explico alguns detalhes, isso só faz parte do ponta pé
+inicial.
+
+# Introdução
+
+Segundo a wikipedia [Ruby](http://en.wikipedia.org/wiki/Ruby_\(programming_language\))
+é originada no Japão durante a década de 90, desenvolvida por
+[Yukihiro "Matz"](http://en.wikipedia.org/wiki/Yukihiro_Matsumoto) uma
+linguagem dinâmica, orientada a objetos com syntax inspirada por
+[Perl](http://en.wikipedia.org/wiki/Perl) com algumas características de
+[Smalltalk](http://en.wikipedia.org/wiki/Smalltalk).
+
+O "padrão" 1.8.7 foi desenvolvido em C pelo Matz. Não há exatamente um
+padrão Ruby, além do 1.8.7 existe JRuby, MacRuby e outros padrões da
+linguagem.
+
+Antes ainda de começar com código gostaria de falar um pouco sobre sua
+"filosofia": ainda segundo Matz Ruby é desenvolvido com foco na
+produtividade do programador e não na otimização da máquina ou na
+"velocidade do código". Pense nisso ao escrever código Ruby ;)
+
+# Script ou IRB?
+
+Ruby é uma linguagem de script e desta forma para nosso primeiro script:
+
+``` ruby
+    #!/usr/bin/env ruby
+
+    puts "Script em ruby"
+    puts "Soma #{1+2}"
+```
+
+Salve-os e execute-os assim:
+
+    % ruby script.rb
+
+Para nossos teste nos vamos usar mais o IRB que é um shell (ou
+interpretador) de código, semelhante ao que acontece com shell bash, assim
+que teclarmos enter a linha escrita será executada:
+
+    ruby-1.8.7-p352 :004 > puts "Interpretador Ruby"
+    Interpretador Ruby
+    => nil
+    ruby-1.8.7-p352 :005 > puts "soma: #{1+1}"
+    soma: 2
+    => nil
+
+# Tipos em Ruby
+
+## String
+
+Uma string é qualquer valor dentro de um `"` ou `'`, dentro de `"` podem
+existir variáveis, semelhante a última linha do nosso primeiro script.
+
+
+    ruby-1.8.7-p352 :002 > "string"
+    => "string"
+    ruby-1.8.7-p352 :003 > puts "string"
+    string
+    => nil
+    ruby-1.8.7-p352 :004 > puts "string#{1+10}"
+    string11
+    => nil
+    ruby-1.8.7-p352 :005 > puts 'string#{1+10}'
+    string#{1+10}
+    => nil
+
+
+## Integers (Inteiros)
+
+Sobre inteiros:
+
+    ruby-1.8.7-p352 :005 > 1+1
+    => 2
+    ruby-1.8.7-p352 :006 > 10/2
+    => 5
+
+Além de inteiros você pode tentar usar também os "Floats": `1.0`.
+
+## Arrays
+
+Arrays são criados usando [] ou %w(), exemplo:
+
+    ruby-1.8.7-p352 :007 > ["1", "2"]
+    => ["1", "2"]
+    ruby-1.8.7-p352 :008 > %w(1 2 3 )
+    => ["1", "2", "3"]
+
+O mais interessante dos arrays em Ruby é que pode ser uma mistura de
+diversos tipos:
+
+    ruby-1.8.7-p352 :009 > [1, "2"]
+    => [1, "2"]
+
+Ao invés do que acontece com outras linguagem que se for um Array de
+inteiros você só pode colocar inteiros.
+
+## Hash
+
+Hash é mais ou menos como Arrays indexados.
+
+Você define um hash assim:
+
+    { :idx => 'valor' }
+
+E seguindo os arrays eles podem ser de diversos tipo, o índice ou o valor:
+
+    { :idx => 'valor', 1 => 'um', 'dois' => 2 }
+
+A nova syntax no ruby19 é definida da seguinte forma:
+
+    { idx: => 'valor' }
+
+E não foge a regra mistura de estilos:
+
+    { um: 1, :dois => 2, 'tres' => 3, 4 => 'quatro' }
+
+Mais um fato interessante dos Hashs é que o índice é na verdade "salvo
+internamente" como um hash em inteiro:
+
+    ruby-1.8.7-p352 :007 > a = { :a => :b, :c => :d }
+    => {:c=>:d, :a=>:b}
+    ruby-1.8.7-p352 :008 > a.keys.map(&:hash)
+    => [237308, 335388]
+    ruby-1.8.7-p352 :009 >
+
+Ou seja, quando você quer recuperar a chave `:a` o Ruby transforma o `:a`
+em hash:
+
+    ruby-1.8.7-p352 :010 > :a.hash
+    => 335388
+
+Tornando assim a busca mais rápida.
+
+# Laços
+
+## if else end
+
+`if else end` funciona da mesma forma como em outras linguagens:
+
+    ruby-1.8.7-p352 :011 > a = 1
+    => 1
+    ruby-1.8.7-p352 :012 > if a == 1
+    ruby-1.8.7-p352 :013?>   puts 'numero um'
+    ruby-1.8.7-p352 :014?> else
+    ruby-1.8.7-p352 :015 >   puts 'outro numero'
+    ruby-1.8.7-p352 :016?> end
+    numero um
+    => nil
+
+
+O que eu acho mais interessante é que os parenteses é de uso opcional:
+
+    if(1 == 1) { puts "ok" }
+    if 1 == 1 { puts "ok" }
+
+E seguindo os fatos extraordinários:
+
+    ruby-1.8.7-p352 :017 > puts 'numero um' if a == 1
+    numero um
+    => nil
+
+## Case
+
+Fugindo também o padrão o `case` aceita diversos tipos como comparação:
+
+    ruby-1.8.7-p352 :023 > a = 1
+    => 1
+    ruby-1.8.7-p352 :024 > case a
+    ruby-1.8.7-p352 :025?>   when 1
+    ruby-1.8.7-p352 :026?>     puts 'numero 1'
+    ruby-1.8.7-p352 :027?>   when "1"
+    ruby-1.8.7-p352 :028?>     puts 'string 1'
+    ruby-1.8.7-p352 :029?>   else
+    ruby-1.8.7-p352 :030 >     puts 'nenhum'
+    ruby-1.8.7-p352 :031?>   end
+
+e:
+
+    ruby-1.8.7-p352 :001 > a = '1'
+    => "1"
+    ruby-1.8.7-p352 :002 > case a
+    ruby-1.8.7-p352 :003?>   when 1
+    ruby-1.8.7-p352 :004?>     puts 'numero 1'
+    ruby-1.8.7-p352 :005?>   when '1'
+    ruby-1.8.7-p352 :006?>     puts 'string 1'
+    ruby-1.8.7-p352 :007?>   else
+    ruby-1.8.7-p352 :008 >     puts 'nenhum'
+    ruby-1.8.7-p352 :009?>   end
+    string 1
+    => nil
+
+## While
+
+    ruby-1.8.7-p352 :011 > a = 1; while a < 5 ; a += 1 ; puts a; end
+    2
+    3
+    4
+    5
+    => nil
+
+## Until
+
+É mais ou menos o "contrário do `while`":
+
+    ruby-1.8.7-p352 :013 > a = 1; until a < 5 ; a += 1 ; puts a; end
+    => nil
+
+ou
+
+    ruby-1.8.7-p352 :014 > a = 1; until a > 5 ; a += 1 ; puts a; end
+    2
+    3
+    4
+    5
+    6
+    => nil
+
+## x.times?
+
+O `x.times` é mais um loop "fácil" no rails, ele executa o mesmo que tiver
+no bloco por *x* vezes:
+
+    ruby-1.8.7-p352 :017 > 3.times { puts 'uma vez' }
+    uma vez
+    uma vez
+    uma vez
+    => 3
+
+Ao invés de usar um número fixo, pode-se facilmente usar uma variável:
+
+    ruby-1.8.7-p352 :018 > vezes = 5
+    => 5
+    ruby-1.8.7-p352 :019 > vezes.times { puts 'mais vezes' }
+    mais vezes
+    mais vezes
+    mais vezes
+    mais vezes
+    mais vezes
+    => 5
+    ruby-1.8.7-p352 :020 > vezes = 2
+    => 2
+    ruby-1.8.7-p352 :021 > vezes.times { puts 'menos vezes' }
+    menos vezes
+    menos vezes
+    => 2
+
+## Each?
+
+O `each` é um laço que facilmente substitui o laço `for` (por falar em
+`for` eu nem lembro mais como se usa oO):
+
+    ruby-1.8.7-p352 :002 > %w(1 2 3).each { |string| puts string }
+    1
+    2
+    3
+    => ["1", "2", "3"]
