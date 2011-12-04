@@ -1,7 +1,7 @@
 destination: ./public
 markdown: rdiscount
 permalink: "/:title/"
-exclude: Gemfile, Gemfile.lock
+exclude: Gemfile, Gemfile.lock, config.ru
 
 paginate: 10
 
