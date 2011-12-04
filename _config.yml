@@ -5,5 +5,24 @@ exclude: Gemfile, Gemfile.lock
 
 paginate: 10
 
+url: http://blog.dmitrynix.com
 title: Unix and Me
 subtitle: About unix, web programing and me
+author: Dmitry Nix
+
+subscribe_rss: /atom.xml
+
+# Google +1
+google_plus_one: true
+google_plus_one_size: medium
+
+# Disqus Comments
+disqus_short_name: dmitrynix
+disqus_show_comment_count: false
+
+# Google Analytics
+google_analytics_tracking_id: "UA-837448-7"
+
+# Twitter
+twitter_follow_button: true
+twitter_tweet_button: true
