@@ -21,6 +21,10 @@ module Server
     end
 
     get '/archives' do
+      redirect '/archives/'
+    end
+
+    get '/archives/' do
       send_file [
         File.dirname(__FILE__),
         :public,
@@ -53,6 +57,23 @@ module Server
       end
     end
 
+    get '/page/1' do
+      redirect '/'
+    end
+
+    get '/page/:page/' do
+      file = [
+        File.dirname(__FILE__),
+        :public,
+        :page,
+        params[:page],
+        'index.html'
+      ].reject(&:nil?).join '/'
+
+      File.exist?(file) ? send_file(file) : 404
+    end
+
+    private
     def category_path slug
       [
         File.dirname(__FILE__),

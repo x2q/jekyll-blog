@@ -2,3 +2,5 @@ destination: ./public
 markdown: rdiscount
 permalink: "/:title/"
 exclude: Gemfile, Gemfile.lock
+
+paginate: 10
