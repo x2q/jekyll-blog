@@ -39,10 +39,16 @@ module Server
       File.exist?(file) ? send_file(file) : 404
     end
 
-    ['/:slug', '/:slug/index.html', '/:slug/index.htm'].each do |path|
-      get path do
-        redirect "#{request.path_info.match /\/[a-z]*/}"
-      end
+    get '/:slug' do
+      redirect "/#{params[:slug]}/"
+    end
+
+    get '/:slug/index.html' do
+      redirect "/#{params[:slug]}/"
+    end
+
+    get '/:slug/index.htm' do
+      redirect "/#{params[:slug]}/"
     end
 
     get '/categories/:slug/' do
@@ -51,14 +57,22 @@ module Server
       File.exist?(file) ? send_file(file) : 404
     end
 
-    ['/categories/:slug', '/categories/:slug/index.html', '/categories/:slug/index.htm'].each do |path|
-      get path do
-        "#{request.path_info.match /categories\/[a-z]*\//}"
-      end
+    get '/categories/:slug' do
+      redirect "/categories/#{params[:slug]}/"
     end
 
-    get '/page/1' do
-      redirect '/'
+    get '/categories/:slug/index.html' do
+      redirect "/categories/#{params[:slug]}/"
+    end
+
+    get '/categories/:slug/index.htm' do
+      redirect "/categories/#{params[:slug]}/"
+    end
+
+    ['/page/1', '/page/1/'].each do |path|
+      get path do
+        redirect '/'
+      end
     end
 
     get '/page/:page/' do
