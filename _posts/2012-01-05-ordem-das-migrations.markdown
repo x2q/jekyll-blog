@@ -46,5 +46,6 @@ Rodando o `rake db:migrate`:
     == CreateTeams: migrated (0.0018s) ===========================================
 
 Ou seja, o _ActiveRecord_ não faz as migrations em ordem e descarta as
-que já passou (como muitos pensam E como eu pensava), ele verifica as que
-não foram feitas e, claro, dando preferência para a ordem no nome.
+que já passou (como muitos pensam E como era até certas versões), ele
+verifica as que não foram feitas e, claro, dando preferência para a ordem
+no nome.
