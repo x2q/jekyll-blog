@@ -2,12 +2,14 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <link href="http://feeds.feedburner.com/belitskyinfo" rel="alternate" title="RSS" type="application/rss+xml" />  
+    <link href="http://feeds.feedburner.com/belitskyinfo" rel="alternate" title="RSS" type="application/rss+xml" />
     <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
     <title>{{ page.title }} &mdash; {{ site.title }}</title>
     <link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
     <link href="/images/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+    {% capture canonical %}{{ site.url }}{% if site.permalink contains '.html' %}{{ page.url }}{% else %}{{ page.url | remove:'index.html' }}{% endif %}{% endcapture %}
+    <link rel="canonical" href="{{ canonical }}">
   </head>
   <body>
     <header>
