@@ -10,6 +10,8 @@ title: Unix and Me
 subtitle: About unix, web programing and me
 author: Dmitry Nix
 
+category_dir: 'categories'
+
 # Google +1
 google_plus_one: true
 google_plus_one_size: medium
