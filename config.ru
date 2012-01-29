@@ -75,6 +75,10 @@ module Server
       end
     end
 
+    get '/page/:page' do
+      redirect "/page/#{params[:page]}/"
+    end
+
     get '/page/:page/' do
       file = [
         File.dirname(__FILE__),
