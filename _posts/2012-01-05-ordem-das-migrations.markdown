@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Ordem das Migrations?"
-date: 2012-10-22 14:03
+date: 2012-01-22 14:03
 comments: true
 categories: [git, rails, activerecord, ruby]
 ---
