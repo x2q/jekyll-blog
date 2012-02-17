@@ -3,7 +3,7 @@ layout: post
 title: "Rugui"
 date: 2009-01-30 11:33
 comments: true
-categories: [rails, ruby]
+categories: [ruby]
 ---
 
 [RuGUI](http://rugui.org/) é um framework para desenvolvimento de interface GTK usando o [Ruby](http://www.ruby-lang.org/pt/) como linguagem.
