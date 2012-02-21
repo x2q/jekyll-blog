@@ -13,12 +13,12 @@ aceitação".
 
 # Adicionar a gem
 
-O nosso projeto é baseado no projeto
-[sinatra-demo-app](https://github.com/dmitrynix/sinatra-demo-app), agora vamos pegar o projeto e adicionar a gem do capybara:
+O nosso projeto é baseado no post [Hello Sinatra ;)](/hello-sinatra/),
+agora vamos pegar o projeto e adicionar a gem do capybara:
 
-    % git clone git://github.com/dmitrynix/sinatra-demo-app.git
+    % git clone git://github.com/dmitrynix/sinatra-demo-app-post.git
 
-Adicionar a gem no `Gemfile`:
+Adicionar a gem no ``Gemfile``:
 
     source 'http://rubygems.org'
 
