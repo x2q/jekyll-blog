@@ -6,7 +6,10 @@ comments: true
 categories: [ruby, sinatra]
 ---
 
-Depois de recomendações do @hakagura sobre o framework sinatra (o mesmo que me recomendou o Rails ;) resolvi voltar a testá-lo. Neste post vou mostrar como criar uma aplicação usando sinatra+rspec.
+Depois de recomendações do [@hakagura](http://twitter.com/hakagura)
+sobre o framework sinatra (o mesmo que me recomendou o Rails ;) resolvi
+voltar a testá-lo. Neste post vou mostrar como criar uma aplicação
+usando sinatra e rspec.
 
 # Preparando ambiente com Bundler
 
@@ -16,14 +19,16 @@ Crie um arquivo de ``Gemfile`` seguindo este exemplo:
 
     gem 'sinatra'
 
-Agora um ``bundle install`` para instalar as dependêcias e criar o ``Gemfile.lock``.
+Agora um ``bundle install`` para instalar as dependêcias e criar o
+``Gemfile.lock``.
 
-Agora vamos criar o ``config.ru`` e o ``demo_app.rb`` para carregar as dependencias usando o bundler:
+Agora vamos criar o ``config.ru`` e o ``demo_app.rb`` para carregar as
+dependências usando o Bundler:
 
-config.ru:
+``config.ru``:
 
     require 'rubygems'
-    require 'bundler/setup'
+    require 'bundler'
 
     Bundler.require :default
 
@@ -31,14 +36,15 @@ config.ru:
 
     run DemoApp::Application
 
-demo_app.rb:
+``demo_app.rb``:
 
     module DemoApp
       class Application < Sinatra::Base
       end
     end
 
-Nossa aplicação básica do tipo modular já está pronta.
+Nossa aplicação já está pronta e ela é considerada do "tipo modular"
+quando se usa sinatra.
 
 # Iniciando o ambiente de testes com RSpec
 
@@ -52,7 +58,7 @@ Primeiro adicionar o rspec e o rack-test para o Gemfile:
 Agora vamos criar um arquivo ``spec_helper.rb`` dentro do diretório ``spec``:
 
     require 'rubygems'
-    require 'bundler/setup'
+    require 'bundler'
 
     Bundler.require :default, :test
 
@@ -94,10 +100,10 @@ Nosso primeiro spec irá, obviamente, falhar:
 
       1) DemoApp::Application Get / should be ok
          Failure/Error: last_response.status.should be(200)
-       
+
            expected #<Fixnum:401> => 200
                 got #<Fixnum:809> => 404
-       
+
            Compared using equal?, which compares object identity,
            but expected and actual are not the same object. Use
            'actual.should == expected' if you don't care about
@@ -112,7 +118,8 @@ Nosso primeiro spec irá, obviamente, falhar:
     rspec ./spec/demo_app_spec.rb:5 # DemoApp::Application Get / should be ok
 
 
-Se você tentar inicializar o servidor para testar no navegador também verá uma mensagem de erro:
+Se você tentar inicializar o servidor para testar no navegador também
+verá uma mensagem de erro:
 
     sinatra-demo-app % rackup config.ru -p 4000
     [2011-08-09 08:43:37] INFO  WEBrick 1.3.1
@@ -158,7 +165,8 @@ Agora vamos testar o texto que retorna da requisição:
       end
     end
 
-Quando executado este teste irá obviamente falhar, mas ao escrever corretamente a aplicação:
+Quando executado este teste irá obviamente falhar, mas ao escrever
+corretamente a aplicação:
 
     module DemoApp
       class Application < Sinatra::Base
@@ -172,7 +180,7 @@ Ele irá passar.
 
 # Links recomendados
 
-* Este projeto no github: [https://github.com/dmitrynix/sinatra-demo-app](https://github.com/dmitrynix/sinatra-demo-app)
-
+* Este projeto no github:
+[https://github.com/dmitrynix/sinatra-demo-app-post](https://github.com/dmitrynix/sinatra-demo-app-post);
 * [http://sinatrarb.com](http://sinatrarb.com);
 * [http://sinatra-book-contrib.com/](http://sinatra-book-contrib.com/);
