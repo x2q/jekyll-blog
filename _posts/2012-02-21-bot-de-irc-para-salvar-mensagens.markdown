@@ -87,8 +87,8 @@ vamos criar o ``bot.rb``:
 Agora é só iniciar o ``bot.rb`` para que ele entre no canal.
 
 Como de costume o código do post está em
-(https://github.com/dmitrynix/bot-irc-and-active-record)[https://github.com/dmitrynix/bot-irc-and-active-record].
+[https://github.com/dmitrynix/bot-irc-and-active-record](https://github.com/dmitrynix/bot-irc-and-active-record).
 
 E se você quiser contribuir com o projeto do bot entre em
-(https://github.com/dmitrynix/irc-bot)[https://github.com/dmitrynix/irc-bot]
+[https://github.com/dmitrynix/irc-bot](https://github.com/dmitrynix/irc-bot)
 e faça um fork para contribuir, criei um pequeno ``TODO``.
