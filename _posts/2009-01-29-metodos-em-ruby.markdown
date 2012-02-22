@@ -3,34 +3,147 @@ layout: post
 title: "Métodos em Ruby"
 date: 2009-01-29 07:41
 comments: true
-categories: [ruby]
+categories: [ruby, oo]
 ---
 
-Funções ou métodos.
+Vamos criar uma classe para usar seus métodos:
 
-Exemplo:
-
-    def bye(name)
-      puts "Good Bye #{name.capitalize}"
+    class Greeting
+      def hi(name)
+        puts "Hi #{name.capitalize}"
+      end
     end
 
-    bye("dmitry")
+    greeting = Greeting.new
+    greeting.hi("dmitry")
 
 E sua saída:
 
-    dmicpd102% ruby MyDef.rb
-    Good Bye Dmitry
+    % ruby MyDef.rb
+    Hi Dmitry
 
-Assim como shell script e outras linguagens a função deve estar antes do código que a chama, i. e., primeiro cria-se a função e depois a usa.
+Note que estou instanciando um objeto da classe ``Greeting`` para só
+então usá-la.
 
-Pode-se ainda chamar a função sem usar o parenteses:
+# ``initialize``
 
-    bye "dmitry"
+Quando for instanciar um objeto também é possível passa para ele
+atributos, neste próximo exemplo vamos passar o nome para o
+``initialize`` e usá-lo em outros métodos:
 
-Veja um exemplo com dois parâmetros:
+    class Greeting
+      def initialize name
+        @name = name
+      end
 
-    def bye(nome, sobre)
-      puts "Good Bye #{nome.capitalize} #{sobre.capitalize}"
+      def hi
+        puts "Hi #{@name.capitalize}"
+      end
+
+      def bye
+        puts "Bye #{@name.capitalize}"
+      end
     end
 
-    bye("dmitry","rocha")
+    greeting = Greeting.new 'dmitry'
+    greeting.hi
+    greeting.bye
+
+# Métodos com ``?`` e ``!``
+
+Não é obrigatório, mas em Ruby costumamos a usar o ``?`` no final do
+método para métodos que retornam ``true`` ou ``false``.
+
+Exemplo, vamos deixar o ``name`` como parâmetro opcional:
+
+    class Greeting
+      def initialize name = ''
+        @name = name
+      end
+
+      def hi
+        puts "Hi #{@name.capitalize}"
+      end
+
+      def bye
+        puts "Bye #{@name.capitalize}"
+      end
+
+      def name
+        @name
+      end
+
+      def name?
+        @name != ''
+      end
+    end
+
+    greeting = Greeting.new 'dmitry'
+    puts greeting.name
+    puts greeting.name?
+
+    greeting = Greeting.new
+    puts greeting.name
+    puts greeting.name?
+
+Vamos testar:
+
+    % ruby my.rb
+    dmitry
+    true
+
+    false
+
+Quanto ao ``!`` é comum que ele modifique o próprio objeto, vamos a um
+exemplo prático:
+
+    class Greeting
+      def initialize name = ''
+        @name = name
+      end
+
+      def hi
+        puts "Hi #{@name.capitalize}"
+      end
+
+      def bye
+        puts "Bye #{@name.capitalize}"
+      end
+
+      def name
+        @name
+      end
+
+      def name?
+        @name != ''
+      end
+
+      def upcase
+        @name.upcase
+      end
+
+      def upcase!
+        @name = upcase
+      end
+    end
+
+    greeting = Greeting.new 'dmitry'
+    puts greeting.upcase
+    puts greeting.name
+    puts greeting.upcase!
+    puts greeting.name
+
+E na saída:
+
+    % ruby my.rb
+    DMITRY
+    dmitry
+    DMITRY
+    DMITRY
+
+Primeiro o ``name`` foi apenas exibido com ``upcase``, mas na chamada
+de ``upcase!`` ele foi modificado e passou a ser assim dentro do objeto.
+
+O que é uma boa prática também é ter o mesmo método sem o ``!``, ou como
+eu prefiro fazer: primeiro o método que apenas retorna o comportamento
+que quero e depois um método com ``!`` que modifica o objeto.
