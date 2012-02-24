@@ -3,7 +3,7 @@ layout: post
 title: "Bot IRC para Salvar Mensagens"
 date: 2012-02-21 09:15
 comments: true
-categories: [activerecord, ruby, irc]
+categories: [activerecord, bot, ruby, irc]
 ---
 
 Usando dos dois últimos posts nós vamos fazer agora com que nosso bot de
