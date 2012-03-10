@@ -3,7 +3,7 @@ layout: post
 title: "Mac e os BSDs"
 date: 2009-08-20 12:25
 comments: true
-categories: [bsd, freebsd, mac os x, terminal, tools]
+categories: [bsd, freebsd, mac-os-x, terminal, tools]
 ---
 
 Você percebe que o Mac é BSD nos pequenos detalhes do terminal:

@@ -3,7 +3,7 @@ layout: post
 title: "Hierarquia Unix"
 date: 2006-09-08 07:00
 comments: true
-categories: [file system, linux, unix]
+categories: [file-system, linux, unix]
 ---
 
 Tento mostrar a hierarquia mais comum aos sistemas operacionais baseados nos Unix's.

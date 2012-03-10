@@ -3,7 +3,7 @@ layout: post
 title: "Endereços IP"
 date: 2007-01-03 11:57
 comments: true
-categories: [internet, ip, ip address]
+categories: [internet, ip, ip-address]
 ---
 
 Em redes TCP/IP cada host, ou interface de rede, tem um endereço IP: 4 grupos de 8 bits, no qual podem ter números entre ``0`` e ``255``, separados por um ponto; exemplo: _192.80.0.3_.

@@ -3,7 +3,7 @@ layout: post
 title: "Adicionar suporte do PostgreSQL ao rails no Mac OS X"
 date: 2009-10-05 07:08
 comments: true
-categories: [db, mac os x, postgresql, rails]
+categories: [db, mac-os-x, postgresql, rails]
 ---
 
 Primeiro instale o pacote do PostGreSQL (o servidor em si), após isso pode-se instalar a gem.

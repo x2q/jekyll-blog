@@ -3,7 +3,7 @@ layout: post
 title: "FreeBSD Live CD"
 date: 2007-04-08 04:52
 comments: true
-categories: [cd, freebsd, live cd]
+categories: [cd, freebsd, live-cd]
 ---
 
 Como tornar o FreeBSD um Live CD.

@@ -3,7 +3,7 @@ layout: post
 title: "Install Fest"
 date: 2010-04-22 16:28
 comments: true
-categories: [free, freedom, install, linux, open source]
+categories: [free, freedom, install, linux, open-source]
 ---
 
 Campus Universitário Ministro Petrônio Portella - Bairro Ininga - Teresina - PI - Brasil.

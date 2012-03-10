@@ -3,7 +3,7 @@ layout: post
 title: "Simula MAC"
 date: 2009-08-23 11:01
 comments: true
-categories: [desktop, linux, mac os x, ubuntu, video]
+categories: [desktop, linux, mac-os-x, ubuntu, video]
 ---
 
 Nestes dois vídeos eu mostro como simular a tecla F9 e F8 do MAC:

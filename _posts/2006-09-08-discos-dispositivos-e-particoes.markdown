@@ -3,7 +3,7 @@ layout: post
 title: "Discos, Dispositivos e Partições"
 date: 2006-09-08 07:54
 comments: true
-categories: [file system, linux, unix]
+categories: [file-system, linux, unix]
 ---
 
 Unix-like é um sistema com grande ênfase a arquivos: CD-ROM, disquete, teclado, monitor, entre outros são considerados arquivos, desta forma basta que determinado programa leia ou escreva em um arquivo para poder acessar um dispositivo.

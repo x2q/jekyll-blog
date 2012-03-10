@@ -3,7 +3,7 @@ layout: post
 title: "Software Freedom Day"
 date: 2009-09-17 04:28
 comments: true
-categories: [free, freedom, open source, software, event]
+categories: [free, freedom, open-source, software, event]
 ---
 
 Software Freedom Day em Teresina - PI no auditório do IFPI.

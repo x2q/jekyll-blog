@@ -3,7 +3,7 @@ layout: post
 title: "Endereços IPv6"
 date: 2007-05-22 12:04
 comments: true
-categories: [internet, ip, ip address]
+categories: [internet, ip, ip-address]
 ---
 
 Com o crescente uso dos endereços ip viu-se a necessidade de "aumentar" a sua capacidade, este aumento está sendo feito pela versão 6 do ip.
