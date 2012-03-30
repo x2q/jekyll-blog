@@ -148,15 +148,17 @@ Instale a(s) ferramenta(s) necessária(s) para o sistema de arquivo instalado xf
 
 Instale as ferramentas de rede como dhcpcd ou rp-pppoe.
 
-Configure a rede em: /etc/conf.d/hostname, /etc/hosts e /etc/conf.d/net, para este último existe um exemplo em /etc/conf.d/net.example.
+Configure a rede em: `/etc/conf.d/hostname`, `/etc/hosts` e `/etc/conf.d/net`, para este último existe um exemplo em `/etc/conf.d/net.example`.
 
 # Usuários
 
-Modifique a senha de root e adicione novos usuários:
+Modifique a senha de root:
 
+    livecd gentoo # passwd root
 
-livecd gentoo # passwd root
-livecd gentoo # useradd -m -G users,wheel,audio -s /bin/zsh john
+E adicione novos usuários:
+
+    livecd gentoo # useradd -m -G users,wheel,audio -s /bin/zsh john
 
 # Esqueça o bash e instale o zsh
 
