@@ -6,49 +6,80 @@ comments: true
 categories: [framework, rails, ruby]
 ---
 
-Meu foco mudou ultimamente, na verdade redirecionou-se mais, pois já havia planejado estudar Ruby On Rails (de shell script (terminal, interface gráfica e aplicações web) para Ruby e Ruby on Rails).
+Meu foco mudou ultimamente, na verdade redirecionou-se mais, pois já havia
+planejado estudar programação (shell scripting para gerenciamento de
+servidores).
 
 # Definição
 
-O Rails é um framework para criar aplicações web escrito em Ruby, uma linguagem orientada a objetos. O que não o deixa fora de aplicações desktop.
+O Rails é um framework para criar aplicações web escrito em Ruby, uma linguagem
+orientada a objetos. O que não deixa fora de aplicações desktop.
 
-Ele foi extraído de uma aplicação real ([Basecamp](http://www.basecamphq.com/)), ou seja, ele saiu de uma ferramenta web para criar outras ferramentas web seguindo o mesmo modelo, já que ao desenvolver para este segmento encontra-se pontos em comum.
+Ele foi extraído de uma aplicação real ([Basecamp](http://www.basecamphq.com/)),
+ou seja, ele saiu de uma ferramenta web para criar outras ferramentas web
+seguindo o mesmo modelo, já que ao desenvolver para este segmento encontra-se
+pontos em comum.
 
-Utiliza mais convenção ao invés de configuração, modelo [MVC](http://pt.wikipedia.org/wiki/MVC), conceito [DRY](http://en.wikipedia.org/wiki/Don%27t_repeat_yourself), bases de dados, dentre outras características.
+Utiliza mais convenção ao invés de configuração, modelo
+[MVC](http://pt.wikipedia.org/wiki/MVC), conceito
+[DRY](http://en.wikipedia.org/wiki/Don%27t_repeat_yourself), bases de dados,
+dentre outras características.
 
 # Configuração e Convenção
 
-O Rails usa configuração e convenção. A configuração será apenas uma, isso mesmo, e todo o resto será feito com convenção. Isso significa que você colocará os trechos de código onde o Ruby, o Rails e o seu próprio código esperam que estejam.
+O Rails usa configuração e convenção. A configuração será apenas uma, isso
+mesmo, e todo o resto será feito com convenção. Isso significa que você colocará
+os trechos de código onde o Ruby, o Rails e o seu próprio código esperam que
+estejam.
 
 # MVC
 
-O MVC (Model, View e Controller) é um forma de criar e gerenciar dados. Isso faz com que tenha-se uma forma separada para diversas funções, tornando assim fácil programar, gerenciar e atualizar.
+O MVC (Model, View e Controller) é um forma de criar e gerenciar dados. Isso faz
+com que tenha-se uma forma separada para diversas funções, tornando assim fácil
+programar, gerenciar e atualizar.
 
 # DRY
 
-O Rails usa ainda um ótimo conceito: DRY (Don't Repeat Yourself, não repita a si mesmo). Para usar este conceito, basta que seja colocado num único lugar todos os seus traços de código, para que possam ser acessados posteriormentes.
+Programadores Ruby usam ainda um ótimo conceito: DRY (Don't Repeat Yourself, não
+repita a si mesmo). Para usar este conceito, basta que seja colocado num único
+lugar todos os seus traços de código, para que possam ser acessados
+posteriormentes.
 
-A forma mais básica do DRY é, numa linguagem que usa função, criar uma função e deixa-lá acessível para outras funções.
+A forma mais básica do DRY é, numa linguagem que usa função, criar uma função e
+deixa-lá acessível para outras funções.
 
 # As Bases de Dados
 
-Para criar as aplicações web ele usa três bases de dados para desenvolver, testar e usar a aplicação.
+Para criar as aplicações web ele usa três bases de dados para desenvolver,
+testar e usar a aplicação.
 
 As bases de dados diferem-se entre si pela necessidade do desenvolvedor:
 
-* O banco do desenvolvedor é o que gera mais log e é o que você pode brincar para fazer teste quase reais;
-* O banco de testes não deve ser usado para desenvolver  e nem para uma sistema pronto, uma vez que ele é <b>zerada</b> a cara utilização;
-* O banco de produção é o "principal" banco de dados, pois nele é que estará tudo gravado num sistema em real uso e é nele que você deve ter cuidado para não perder dados ao fazer atualizações.
+* O banco do desenvolvedor é o que gera mais log e é o que você pode brincar
+  para fazer teste quase reais;
+* O banco de testes não deve ser usado para desenvolver e nem para uma sistema
+  pronto, uma vez que ele é **zerada** a cara utilização;
+* O banco de produção é o "principal" banco de dados, pois nele é que estará
+  tudo gravado num sistema em real uso e é nele que você deve ter cuidado para
+  não perder dados ao fazer atualizações.
 
-Ao acessar bases de dados o Rails utiliza uma API que faz com que todas os acessos ao mais diversos tipos de banco de dados sejam feitos da mesma forma pelo desenvolvedor.
+Ao acessar bases de dados o Rails utiliza uma API que faz com que todas os
+acessos ao mais diversos tipos de banco de dados sejam feitos da mesma forma
+pelo desenvolvedor.
 
 # Ferramentas
 
 O Rails como ferramenta tem vários scripts para auxiliar na programação.
 
-Por exemplo para criar tabelas no banco de dados usa-se o código ruby "simples" que tem uma api para qualquer banco de dados: Mysql, Postgresql, sqlite3 e ou outros. Assim não é preciso ir na tabela e importar dados de um arquivo sql para o Mysql ou para o Postgres, basta usar um arquivo Rake.
+Por exemplo para criar tabelas no banco de dados usa-se o código ruby "simples"
+que tem uma api para qualquer banco de dados: Mysql, Postgresql, sqlite3 e ou
+outros. Assim não é preciso ir na tabela e importar dados de um arquivo sql para
+o Mysql ou para o Postgres, basta usar uma tarefa Rake.
 
-Bom, no próximo post eu espero mostrar como criar uma aplicação simples com Rails, mostrando o MVC e o relacionamento da base de dados. Ou criar um mini-post sobre o Postgresql. Ou atualizar este... Acho melhor durmir já passa das 0, ou seria da 0?
+Bom, no próximo post eu espero mostrar como criar uma aplicação simples com
+Rails, mostrando o MVC e o relacionamento da base de dados. Ou criar um
+mini-post sobre o Postgresql. Ou atualizar este… Acho melhor dormir já passa
+das 0, ou seria da 0?
 
 Links:
 
