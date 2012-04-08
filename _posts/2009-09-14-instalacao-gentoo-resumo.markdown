@@ -8,28 +8,39 @@ categories: [gentoo, install]
 
 O Gentoo é uma distribuição linux de total personalização.
 
-Neste tutorial vou informar quais são os passos para a instalação e configuração do Gentoo. E como é mais um lembrete do que é necessário do que um guia passo-a-passo não vou me ater a configurações minuciosas, desta forma não recomendo para iniciantes.
+Neste tutorial vou informar quais são os passos para a instalação e
+configuração do Gentoo. E como é mais um lembrete do que é necessário do
+que um guia passo-a-passo não vou me ater a configurações minuciosas,
+desta forma não recomendo para iniciantes.
 
-É necessário o download da iso e no momento da instalação também será requerido arquivos para download, como o kernel linux e outros utilitários:
+É necessário o download da iso e no momento da instalação também será
+requerido arquivos para download, como o kernel linux e outros
+utilitários:
 
 * [install-x86-minimal-20090901.iso](http://www.las.ic.unicamp.br/pub/gentoo/releases/x86/current-iso/install-x86-minimal-20090901.iso) 104M;
 * [stage3-i686-20090901.tar.bz2](http://www.las.ic.unicamp.br/pub/gentoo/releases/x86/current-iso/stage3-i686-20090901.tar.bz2) 119,1M;
 * [portage-20090913.tar.bz2](http://www.las.ic.unicamp.br/pub/gentoo/snapshots/portage-20090913.tar.bz2) 34,9M;
-* e cerca de 70M que será baixado para o kernel linux e outros utilitários durante a instalação.
+* e cerca de 70M que será baixado para o kernel linux e outros
+  utilitários durante a instalação.
 
-Nota: Você pode ter qualquer Linux Live CD, qualquer linux tem as ferramentas necessárias antes de entrar no gentoo para instalar o
+Nota: Você pode ter qualquer Linux Live CD, qualquer linux tem as
+ferramentas necessárias antes de entrar no gentoo para instalar o
 
 # Particionar e Formatar Discos
 
 A tabela de partição do disco pode ser formatada com o fdisk ou cfdisk.
 
-Após a formatação use um destes comandos para criar o sistema de arquivos na partição: mkfs.ext2, mkfs.ext3, mkfs.ext4 e/ou mkfs.reiserfs.
+Após a formatação use um destes comandos para criar o sistema de
+arquivos na partição: `mkfs.ext2`, `mkfs.ext3`, `mkfs.ext4` e/ou
+`mkfs.reiserfs`.
 
-Após este particionamento e formatação monte o novo sistema de arquivos como se a raiz fosse em /mnt/gentoo.
+Após este particionamento e formatação monte o novo sistema de arquivos
+como se a raiz fosse em `/mnt/gentoo`.
 
 # Stage3
 
-Baixe o stage3 previamente ou no momente da instalação usando o wget ou links.
+Baixe o stage3 previamente ou no momente da instalação usando o wget ou
+links.
 
 Após ter o stage3 descompacte-o dentro da nova raiz:
 
@@ -37,17 +48,20 @@ Após ter o stage3 descompacte-o dentro da nova raiz:
 
 # Portage
 
-Obtenha também o arquivo do portage e decompacte-o dentro de /usr dentro da nova raiz
+Obtenha também o arquivo do portage e decompacte-o dentro de `/usr` dentro
+da nova raiz
 
     livecd gentoo # tar xvjf portage-0090901.tar.bz2 -C /mnt/gentoo/usr
 
 # Executando chroot
 
-Se estiver instalando usando uma conexão de internet copie o arquivo /etc/resolv.conf:
+Se estiver instalando usando uma conexão de internet copie o arquivo
+`/etc/resolv.conf`:
 
     livecd gentoo # cp -L /etc/resolv.conf /mnt/gentoo/etc
 
-Monte o sistema de arquivo /proc e faça um bind (mais ou menos como um mirror) de /dev:
+Monte o sistema de arquivo `/proc` e faça um bind (mais ou menos como um
+mirror) de `/dev`:
 
     livecd gentoo # mount -t proc none /mnt/gentoo/proc
     livecd gentoo # mount -o bind /dev /mnt/gentoo/dev
@@ -59,7 +73,7 @@ Execute agora o chroot:
     >>> Regenerating /etc/ld.so.cache...
     livecd gentoo # source /etc/profile
 
-Por fim edite o arquivo /etc/fstab:
+Por fim edite o arquivo `/etc/fstab`:
 
     # /etc/fstab: static file system information.
     #
@@ -91,7 +105,8 @@ Por fim edite o arquivo /etc/fstab:
 
 # Instalando o kernel e gerenciador de boot
 
-Neste tutorial vamos obter o fonte e um pacote para automatizar o compilamento do kernel.
+Neste tutorial vamos obter o fonte e um pacote para automatizar o
+compilamento do kernel.
 
 Obtendo o código-fonte do kernel:
 
@@ -102,15 +117,17 @@ Compilando o kernel de forma automatizada com genkernel:
     livecd gentoo # emerge genkernel
     livecd gentoo # genkernel all
 
-Opcionalmente pode-se usar o parâmetro ``--menuconfig`` para que seja mostrado o menu de configuração do kernel.
+Opcionalmente pode-se usar o parâmetro ``--menuconfig`` para que seja
+mostrado o menu de configuração do kernel.
 
-Pode-se usar tanto o lilo como o grub como gerenciador de boot, mas aqui mostro a forma de instalar e configurar o grub:
+Pode-se usar tanto o lilo como o grub como gerenciador de boot, mas aqui
+mostro a forma de instalar e configurar o grub:
 
 Obtendo o grub:
 
     livecd gentoo # emerge grub
 
-Configure em /boot/grub/menu.lst:
+Configure em `/boot/grub/menu.lst`:
 
     # This is a sample grub.conf for use with Genkernel, per the Gentoo handbook
     # http://www.gentoo.org/doc/en/handbook/handbook-x86.xml?part=1&chap=10#doc_chap2
@@ -144,11 +161,14 @@ Cron:
     livecd gentoo # emerge vixie-cron
     livecd gentoo # rc-update add vixie-cron default
 
-Instale a(s) ferramenta(s) necessária(s) para o sistema de arquivo instalado xfsprogs, reiserfsprogs e/ou jfsutils.
+Instale a(s) ferramenta(s) necessária(s) para o sistema de arquivo
+instalado xfsprogs, reiserfsprogs e/ou jfsutils.
 
 Instale as ferramentas de rede como dhcpcd ou rp-pppoe.
 
-Configure a rede em: `/etc/conf.d/hostname`, `/etc/hosts` e `/etc/conf.d/net`, para este último existe um exemplo em `/etc/conf.d/net.example`.
+Configure a rede em: `/etc/conf.d/hostname`, `/etc/hosts` e
+`/etc/conf.d/net`, para este último existe um exemplo em
+`/etc/conf.d/net.example`.
 
 # Usuários
 
