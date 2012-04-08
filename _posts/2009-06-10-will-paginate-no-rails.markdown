@@ -6,72 +6,45 @@ comments: true
 categories: [framework, paginate, rails, ruby]
 ---
 
-O Will Paginate é um plugin para paginar a exibição dos itens no Rails, uma vez que o Rails exibe todos os items quando é solicitado no 'index' de cada controller.
+O [Will Paginate](http://github.com/mislav/will_paginate) é uma gem para
+paginar a exibição dos itens no Rails, uma vez que o Rails exibe todos
+os items quando é solicitado no 'index' de cada controller.
 
 # Instalação
 
-Pode ser instalado via git [http://github.com/mislav/will_paginate](http://github.com/mislav/will_paginate) ou usando a gem _will_paginate_.
+Adicione ao `Gemfile`:
 
-    % ./script/plugin install http://github.com/mislav/will_paginate.git
-
-ou
-
-    # gem install will_paginate
-
-A solução desta página deve ser implementada em cada controller para que ele possa ser paginado!
+    gem 'will_paginate'
 
 # Uso
+
+Scaffold:
+
+    rails g scaffold users name:string phone:string
 
 Agora modifique a seguinte linha do controller:
 
     def index
-      # @tickets = Ticket.all
-      @tickets = Ticket.paginate :page => params[:page], :per_page => 3
-
-      respond_to do |format|
-        format.html # index.html.erb
-        format.xml  { render :xml => @tickets }
-      end
+      @users = User.paginate :page => params[:page], :per_page => 3
     end
-
-Veja que eu comentei a linha 2 e adicionei a linha 3, para ficar bem claro a mudança.
 
 Basicamente a linha 3 indica que:
 
-* Será paginada (``Ticket.paginate``);
-* O paginador receberá como parâmetro o ``page`` da url (``:page => params[:page]``);
-* Terá no máximo 3 itens por página (``:per_page => 3``), o máximo padrão é 30.
+* Será paginada (`User.paginate`);
+* O paginador receberá como parâmetro o `page` da url (`:page => params[:page]`);
+* Terá no máximo 3 itens por página (`:per_page => 3`), o máximo padrão é 30.
 
-E na view index usar o código abaixo (última linha, a 20):
+E na view index basta adicionar `will_paginate @users`:
 
-    <h1>Listing tickets</h1>
+    <%= will_paginate @users %>
 
-    <%= link_to 'New ticket', new_ticket_path %><br />
+# Código em
 
-    <table>
-      <tr>
-        <th>Description</th>
-        <th>Customer</th>
-      </tr>
+Como de costume o código está em:
+[https://github.com/dmitrynix/will-paginate-post](https://github.com/dmitrynix/will-paginate-post)
 
-    <% @tickets.each do |ticket| %>
-      <tr>
-        <td><%=h ticket.description %></td>
-        <td><%=h ticket.customer %></td>
-        <td><%= link_to 'Show', ticket %></td>
-        <td><%= link_to 'Edit', edit_ticket_path(ticket) %></td>
-        <td><%= link_to 'Destroy', ticket, :confirm => 'Are you sure?', :method => :delete %></td>
-      </tr>
-    <% end %>
-    </table>
+Para fazer um teste rápido basta rodar a tarefa *populate:users*.
 
-    <%= will_paginate @tickets %>
+    % rake populate:users
 
-É possível ainda usar temas pré-definidos do will paginate (copiando os devidos css) ou criar seu próprio tema.
-
-# Exemplo
-
-Está disponível no meu Github.com ([http://github.com/dmitrynix](http://github.com/dmitrynix)) o código fonte de uma aplicação com will paginate. Para o controller 'tickets' eu usei conforme descrito neste simples artigo, e no controller 'notes' está um exemplo usando um helper, que eu particularmente creio ser mais produtivo para quem usa temas no will paginate.
-
-[http://github.com/dmitrynix/Paginate_example](http://github.com/dmitrynix/Paginate_example).
-
+E abrir [http://localhost:3000/](http://localhost:3000/).
