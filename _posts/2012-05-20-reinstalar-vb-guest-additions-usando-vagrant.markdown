@@ -1,0 +1,113 @@
+---
+layout: post
+title: "Reinstalar VirtualBox Guest Additions Usando Vagrant"
+date: 2012-05-20 22:53
+comments: true
+categories: [vb, vagrant, ruby]
+---
+
+Usando uma máquina virtual ubuntu percebi que ao fazer uma atualização
+completa do sistema e reiniciar a máquina o seguinte erro passa a surgir
+na tela:
+
+    test-vm% vagrant up
+    [default] VM already created. Booting if it's not already running...
+    [default] Clearing any previously set forwarded ports...
+    [default] Forwarding ports...
+    [default] -- 22 => 2222 (adapter 1)
+    [default] Creating shared folders metadata...
+    [default] Clearing any previously set network interfaces...
+    [default] Preparing network interfaces based on configuration...
+    [default] Booting VM...
+    [default] Waiting for VM to boot. This can take a few minutes.
+    [default] VM booted and ready for use!
+    [default] Configuring and enabling network interfaces...
+    [default] Mounting shared folders...
+    [default] -- v-root: /vagrant
+    The following SSH command responded with a non-zero exit status.
+    Vagrant assumes that this means the command failed!
+
+    mount -t vboxsf -o uid=`id -u vagrant`,gid=`id -g vagrant` v-root /vagrant
+
+Para corrigir isso basta reinstalar VirtualBox Additions. O jeito mais
+fácil é usar a gem *vagrant-vbguest* para automatizar o processo.
+
+Primeiro temos que ter a ISO do CD do `VBoxGuestAdditions_4.1.14.iso`,
+no meu caso eu baixei assim:
+
+    test-vm% wget -c http://download.virtualbox.org/virtualbox/4.1.14/VBoxGuestAdditions_4.1.14.iso
+
+Instalar a gem *vagrant-vbguest*:
+
+    test-vm% gem install vagrant-vbguest
+
+Com a ISO baixada e a gem instalada basta rodar este commando:
+
+    test-vm% vagrant vbguest -f --iso ./VBoxGuestAdditions_4.1.14.iso
+    [default] Detected Virtualbox Guest Additions 4.1.14 --- OK.
+    [default] Forcing installation of Virtualbox Guest Additions 4.1.14 - guest's version is 4.1.14
+    [default] Copy iso file ./VBoxGuestAdditions_4.1.14.iso into the box /tmp/VBoxGuestAdditions.iso
+    [default] Copy installer file setup_debian.sh into the box /tmp/install_vbguest.sh
+    stdin: is not a tty
+    Reading package lists...
+    Building dependency tree...
+    Reading state information...
+    linux-headers-3.2.0-24-generic is already the newest version.
+    linux-headers-3.2.0-24-generic set to manually installed.
+    The following extra packages will be installed:
+      fakeroot make patch
+    Suggested packages:
+      make-doc diffutils-doc
+    The following NEW packages will be installed:
+      dkms fakeroot make patch
+    dpkg-preconfigure: unable to re-open stdin: No such file or directory
+    0 upgraded, 4 newly installed, 0 to remove and 0 not upgraded.
+    Need to get 0 B/359 kB of archives.
+    After this operation, 1,219 kB of additional disk space will be used.
+    Selecting previously unselected package make.
+    (Reading database ... 55209 files and directories currently installed.)
+    Unpacking make (from .../make_3.81-8.1ubuntu1_amd64.deb) ...
+    Selecting previously unselected package patch.
+    Unpacking patch (from .../patch_2.6.1-3_amd64.deb) ...
+    Selecting previously unselected package dkms.
+    Unpacking dkms (from .../dkms_2.2.0.3-1ubuntu3_all.deb) ...
+    Selecting previously unselected package fakeroot.
+    Unpacking fakeroot (from .../fakeroot_1.18.2-1_amd64.deb) ...
+    Processing triggers for man-db ...
+    Setting up make (3.81-8.1ubuntu1) ...
+    Setting up patch (2.6.1-3) ...
+    Setting up dkms (2.2.0.3-1ubuntu3) ...
+    Setting up fakeroot (1.18.2-1) ...
+    update-alternatives: using /usr/bin/fakeroot-sysv to provide /usr/bin/fakeroot (fakeroot) in auto mode.
+    mount: warning: /mnt seems to be mounted read-only.
+    Verifying archive integrity... All good.
+    Uncompressing VirtualBox 4.1.14 Guest Additions for Linux.........
+    VirtualBox Guest Additions installer
+    Removing installed version 4.1.14 of VirtualBox Guest Additions...
+    Removing existing VirtualBox DKMS kernel modules ...done.
+    Removing existing VirtualBox non-DKMS kernel modules ...done.
+    Building the VirtualBox Guest Additions kernel modules ...done.
+    Doing non-kernel setup of the Guest Additions ...done.
+    Starting the VirtualBox Guest Additions ...done.
+    Installing the Window System drivers ...fail!
+    (Could not find the X.Org or XFree86 Window System.)
+
+E quando a máquina for iniciar novamente:
+
+    test-vm% vagrant up
+    [default] VM already created. Booting if it's not already running...
+    [default] Clearing any previously set forwarded ports...
+    [default] Forwarding ports...
+    [default] -- 22 => 2222 (adapter 1)
+    [default] Creating shared folders metadata...
+    [default] Clearing any previously set network interfaces...
+    [default] Preparing network interfaces based on configuration...
+    [default] Booting VM...
+    [default] Waiting for VM to boot. This can take a few minutes.
+    [default] VM booted and ready for use!
+    [default] Detected Virtualbox Guest Additions 4.1.14 --- OK.
+    [default] Configuring and enabling network interfaces...
+    [default] Mounting shared folders...
+    [default] -- v-root: /vagrant
+
+O erro não surge mais e ele monta o diretório em `/vagrant`.
