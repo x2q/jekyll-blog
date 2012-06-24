@@ -39,7 +39,7 @@ como se a raiz fosse em `/mnt/gentoo`.
 
 # Stage3
 
-Baixe o stage3 previamente ou no momente da instalação usando o wget ou
+Baixe o stage3 previamente ou no momento da instalação usando o wget ou
 links.
 
 Após ter o stage3 descompacte-o dentro da nova raiz:
