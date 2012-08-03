@@ -6,6 +6,14 @@ comments: true
 categories: [vb, vagrant, ruby]
 ---
 
+Nota: como o [@hakagura](http://twitter.com/hakagura) comentou se for apenas
+para reinstalar a mesma versão, basta executar:
+
+    % sudo /etc/init.d/vboxadd setup
+
+Dentro da máquina virtual. Mas para atualizar o Guest Additions ainda é
+preciso seguir os passos abaixo.
+
 Usando uma máquina virtual ubuntu percebi que ao fazer uma atualização
 completa do sistema e reiniciar a máquina o seguinte erro passa a surgir
 na tela:
