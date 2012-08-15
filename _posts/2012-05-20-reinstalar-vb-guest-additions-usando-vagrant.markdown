@@ -6,8 +6,8 @@ comments: true
 categories: [vb, vagrant, ruby]
 ---
 
-Nota: como o [@hakagura](http://twitter.com/hakagura) comentou se for apenas
-para reinstalar a mesma versão, basta executar:
+Nota: como o [@esmerinocosta](http://twitter.com/esmerinocosta) comentou se for
+apenas para reinstalar a mesma versão, basta executar:
 
     % sudo /etc/init.d/vboxadd setup
 
