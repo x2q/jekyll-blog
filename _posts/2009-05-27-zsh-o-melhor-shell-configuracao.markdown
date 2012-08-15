@@ -75,7 +75,7 @@ E copiar o padrão do oh-my-zsh:
 
 # Escolha dos temas
 
-Em (https://github.com/robbyrussell/oh-my-zsh/wiki/themes)[https://github.com/robbyrussell/oh-my-zsh/wiki/themes]
+Em [https://github.com/robbyrussell/oh-my-zsh/wiki/themes](https://github.com/robbyrussell/oh-my-zsh/wiki/themes)
 escolha o tema que queira e modifique a linha:
 
     ZSH_THEME="robbyrussell"
