@@ -53,8 +53,12 @@ forma este menu não será aberto da próxima vez (é a que uso).
 
 # Usando oh-my-zsh
 
-O [Oh My Zsh](https://github.com/robbyrussell/oh-my-zsh/) é uma série de
-configurações que já vem por padrão.
+O [Oh My Zsh](https://github.com/robbyrussell/oh-my-zsh/) é:
+
+> A community-driven framework for managing your zsh configuration.
+
+Que já vem com alguns temas e plugins que auxiliam ainda mais o uso do
+terminal.
 
 Vou fazer usando git, mas caso não tenha instalado basta baixar o zip/tar do
 github.
