@@ -6,9 +6,9 @@ comments: true
 categories: [shell, zsh]
 ---
 
-Um fato de eu gostar do zsh ao invés do bash é que o complemente de linha de comando daquele é o melhor que já testei. O zsh também preza pela simplicidade.
-
-Adiante existem algumas configurações do zsh encontradas na página de documentação do Gentoo Linux.
+Um fato de eu gostar do zsh ao invés do bash é que o complemento de linha
+de comando daquele é o melhor que já testei. O zsh também preza pela
+simplicidade.
 
 # Instalação
 
@@ -22,7 +22,8 @@ Gentoo:
 
 # Primeira execução
 
-A primeira execução do zsh ele apresenta uma tela de configuração através de menus, exceto para usuário root:
+A primeira execução do zsh ele apresenta uma tela de configuração através
+de menus, exceto para usuário root:
 
     This is the Z Shell configuration function for new users,
     zsh-newuser-install.
@@ -42,73 +43,85 @@ A primeira execução do zsh ele apresenta uma tela de configuração através d
 
     --- Type one of the keys in parentheses ---
 
-Eu particularmente não gosto deste modo de configuração, pois fico perdido nos menus, assim sendo eu comentarei somente as duas primeiras opções:
+Eu particularmente não gosto deste modo de configuração, pois fico perdido
+nos menus, assim sendo eu comentarei somente as duas primeiras opções:
 
-* q, sair e fazer nada. na próxima vez que o zsh for aberto será aberto o mesmo menu;
-* 0, sair e adicionar um comentário ao arquivo de configuração, desta forma este menu não será aberto da próxima vez.
+* `q`, sair e fazer nada. na próxima vez que o zsh for aberto será aberto o
+mesmo menu;
+* `0`, sair e adicionar um comentário ao arquivo de configuração, desta
+forma este menu não será aberto da próxima vez (é a que uso).
 
-# Correção de comandos
+# Usando oh-my-zsh
 
-A correção de comandos permite que seja indicado um comando próximo do comando que se queira, não é um alias, uma vez que o zsh pergunta se quer executar o comando indicado:
+O [Oh My Zsh](https://github.com/robbyrussell/oh-my-zsh/) é uma série de
+configurações que já vem por padrão.
 
-    % setopt correctall
-    % psd
-    zsh: correct 'psd' to 'pwd' [nyae]? y
-    /home/remoteuser
-    % pdw
-    zsh: correct 'pdw' to 'pwd' [nyae]? y
-    /home/remoteuser
-    % cds
-    zsh: correct 'cds' to 'cd' [nyae]? y
+Vou fazer usando git, mas caso não tenha instalado basta baixar o zip/tar do
+github.
 
-# Configuração do Prompt
+    % git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 
-A variável ``PS1`` em muitos shells armazena a configuração que é exibida na linha que é digitado o comando.
+Renomear seu `.zshrc` antigo (caso tenha):
 
-O zsh permite que seja configurada esta variável conforme sua necessidade:
+    % mv ~/.zshrc ~/.zshrc.pre-oh-my-zsh
 
-* ``%T`` hora no formato HH:MM;
-* ``%*`` hora no formato HH:MM:SS;
-* ``%D`` data no formato YY-MM-DD;
-* ``%n`` nome de usuário;
-* ``%B`` - ``%b`` saída do terminal em negrito;
-* ``%U`` - ``%u`` saída do terminal sublinhado;
-* ``%d`` diretório atual;
-* ``%~`` diretório atual, substitui o diretório home do usuário por _~_;
-* ``%M`` ou ``%m`` nome do computador;
-* ``%l`` tty atual.
+E copiar o padrão do oh-my-zsh:
 
-Exemplos:
+    % cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
 
-    host% PS1="%M%% "
-    host% PS1="%n@%M %l %% "
-    remoteuser@host pts/1 %
+# Escolha dos temas
 
-# Entrar em diretório sem o cd
+Em (https://github.com/robbyrussell/oh-my-zsh/wiki/themes)[https://github.com/robbyrussell/oh-my-zsh/wiki/themes]
+escolha o tema que queira e modifique a linha:
 
-O cd é o comando padrão para entrar em qualquer diretório.
+    ZSH_THEME="robbyrussell"
 
-Quando for digitado o caminho de um diretório ele nunca será executado (pelo fato de ser um diretório), por isso há uma opção de ``autocd``, i. e., entrar automaticamente num diretório apenas informando o caminho:
+Com o nome do tema que gostou.
 
-Para ativar:
+# Tips
 
-    host% pwd
+## Entrar em diretório sem o cd
+
+O oh-my-zsh já vem com essa opção habilitada.
+
+Quando for digitado o caminho de um diretório ele nunca será executado (pelo
+fato de ser um diretório), por isso há uma opção de `autocd`, i. e., entrar
+automaticamente num diretório apenas informando o caminho:
+
+Exemplo:
+
+    % pwd
     /home/user
-    host% setopt autocd
-    host% /etc
-    host% pwd
-    /etc
+    % /tmp
+    % pwd
+    /tmp
 
-# Salvando as configurações
+## "autoexpand"
 
-O arquivo _.zshrc_ no diretório home é carregado a cada início do zsh, para guardar configurações basta digitar uma por linha como se cada uma fosse um comando.
+Algo que uso bastante é o que chamo de "autoexpand".
 
-Por exemplo (meu _.zshrc_):
+Ao invés de ter que usar o tab para selecionar um por um, pq não selecionar
+todos exceto o que não quer?
 
-    source ${HOME}/.profile
-    PS1="%M[%l]%# " 
-    setopt
-    autocd
+Vamos supor que tenha estes aquivos:
 
-    alias :q="exit"
-    alias :e="vim
+     % file .*zsh*
+    .oh-my-zsh:   directory
+    .zsh-update:  ASCII text
+    .zsh_history: data
+    .zshrc:       ASCII text
+
+E queira-se editar todos exceto o `.zsh_history`, digite `vim .*zsh*` e no
+final da linha um `Tab` daí basta remover o `.zsh_history`.
+
+## Busca "inteligente"
+
+Vamos supor que foi digitado os seguintes comandos:
+
+    % vim /etc/hosts
+    % /usr/local
+    % /tmp
+
+Se quiser voltar imediatamente para editar o `/etc/hosts` basta digitar `vim` e
+seta para cima que ele vai mostrar `vim /etc/hosts` sem passar pelos outros
+dois comandos.
