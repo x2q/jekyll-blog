@@ -26,5 +26,23 @@ Para usá-lo é bastante simples: salvar o arquivo deste gist
 
 Agora apenas executar o comando para gerar novamente o blog.
 
-No meu caso ainda precisei desatirar o uso do **pack**, pois não tenho
-interesse em comprimir os javascripts.
+# Observações
+
+No meu caso precisei desativar o uso do **pack**, pois não tenho interesse em
+comprimir os javascripts.
+
+E uma "boa prática" quanto ao conteúdo do `_layouts`/`_include`.
+
+Ao invés de fazer algo como:
+
+    {% for category in post.categories %}
+      <a href="{{ root_url }}/categories/{{ category }}/">{{ category }}</a>
+    {% endfor %}
+
+Tive que mudar para:
+
+    {{ post.categories | category_links }}
+
+A primeira forma gerava as tags `a` geradas eram uma por linha, porém o
+compressor unia na mesma linha, o que por sua vez fazia com que o navegador
+exibisse todos os links juntos.
