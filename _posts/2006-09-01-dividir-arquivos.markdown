@@ -3,6 +3,7 @@ layout: post
 title: "Dividir Arquivos"
 date: 2006-09-01 04:47
 comments: true
+meta-description: "Como dividir arquivos no terminal usando split e cat"
 categories: [split, terminal, tools, unix]
 ---
 
