@@ -5,9 +5,7 @@
 <footer>
   <span class="categories">
     posted in
-      {% for category in post.categories %}
-        <a href="{{ root_url }}/categories/{{ category }}/">{{ category }}</a>
-      {% endfor %}
+      {{ post.categories | category_links }}
   </span>
 </footer>
 {% endif %}
