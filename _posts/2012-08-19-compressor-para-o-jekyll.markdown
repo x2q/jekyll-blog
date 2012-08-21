@@ -43,6 +43,6 @@ Tive que mudar para:
 
     \{\{ post.categories | category_links \}\}
 
-A primeira forma gerava as tags `a` geradas eram uma por linha, porém o
-compressor unia na mesma linha, o que por sua vez fazia com que o navegador
-exibisse todos os links juntos.
+Na primeira forma as tags `a` geradas eram uma por linha, porém o compressor
+unia na mesma linha, o que por sua vez fazia com que o navegador exibisse todos
+os links juntos.
