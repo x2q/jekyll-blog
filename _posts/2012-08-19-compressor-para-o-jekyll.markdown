@@ -35,13 +35,13 @@ E uma "boa prática" quanto ao conteúdo do `_layouts`/`_include`.
 
 Ao invés de fazer algo como:
 
-    {% for category in post.categories %}
-      <a href="{{ root_url }}/categories/{{ category }}/">{{ category }}</a>
-    {% endfor %}
+    \{\% for category in post.categories \%\}
+      <a href="\{\{ root_url \}\}/categories/\{\{ category \}\}/">\{\{ category \}\}</a>
+    \{\% endfor \%}
 
 Tive que mudar para:
 
-    {{ post.categories | category_links }}
+    \{\{ post.categories | category_links \}\}
 
 A primeira forma gerava as tags `a` geradas eram uma por linha, porém o
 compressor unia na mesma linha, o que por sua vez fazia com que o navegador
