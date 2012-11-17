@@ -3,8 +3,6 @@ source 'http://rubygems.org'
 
 gem 'jekyll'
 gem 'rdiscount'
+gem 'foreman'
 gem 'sinatra'
-
-group :development do
-  gem 'capistrano'
-end
+gem 'puma'
