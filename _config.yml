@@ -1,7 +1,7 @@
-destination: ./public
+destination: public
 markdown: rdiscount
 permalink: "/:title/"
-exclude: Gemfile, Gemfile.lock, config.ru, README.markdown
+exclude: config.ru, Gemfile, Gemfile.lock, Procfile, README.markdown
 
 paginate: 10
 
@@ -9,6 +9,6 @@ title: Unix and Me
 subtitle: About unix, web programing and me
 author: Dmitry Nix
 
-category_dir: 'categories'
+category_dir: categories
 
 url: http://blog.dmitrynix.com
