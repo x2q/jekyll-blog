@@ -1,5 +1,4 @@
 destination: public
-markdown: rdiscount
 permalink: "/:title/"
 exclude: config.ru, Gemfile, Gemfile.lock, Procfile, README.markdown
 

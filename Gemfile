@@ -2,7 +2,7 @@
 source 'http://rubygems.org'
 
 gem 'jekyll'
-gem 'rdiscount'
+gem 'redcarpet'
 gem 'foreman'
 gem 'sinatra'
 gem 'puma'
