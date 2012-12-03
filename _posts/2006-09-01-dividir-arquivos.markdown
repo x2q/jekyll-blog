@@ -8,8 +8,8 @@ categories: [split, terminal, tools, unix]
 ---
 
 As vezes é necessário que manipulemos arquivos grandes, mas o destino deles pode
-não comportar. Desta forma existe o comando *split* para dividir os arquivos e
-para recuperá-los um simples *cat*.
+não comportar. Desta forma existe o comando `split` para dividir os arquivos e
+para recuperá-los um simples `cat`.
 
 # Dividir
 
@@ -25,7 +25,7 @@ cada arquivo de saída seja aberto;
 * `--help` mostra a ajuda;
 * `--version` mostra a versão.
 
-## Exemplo Prático:
+## Exemplo Prático
 
 Temos o seguinte arquivo:
 
@@ -46,18 +46,18 @@ Pronto o arquivo já está dividido:
     -rw-r--r-- 1 root root 680M Sep 2 10:03 xab
     -rw-r--r-- 1 root root 301M Sep 2 10:04 xac
 
-Quando o *split* separa um arquivo ele o coloca em arquivos com o padrão de
+Quando o `split` separa um arquivo ele o coloca em arquivos com o padrão de
 nome: **x** seguido de outras letras e números de forma a ficar em ordem, como
-visto no *ls* acima, isto ajuda quando for recompor o arquivo.
+visto no `ls` acima, isto ajuda quando for recompor o arquivo.
 
 # Recompor
 
-O conhecido *cat* é útil para vermos arquivos de texto (e até para unir),
+O conhecido `cat` é útil para vermos arquivos de texto (e até para unir),
 mas ele também abre arquivos binários, e para unir arquivos separados pelo
-comando *split*.
+comando `split`.
 
-**ATENÇÃO** é preciso redirecionar o conteúdo do *cat*, caso contrário o
-conteúdo será mostrado na tela.
+Mas **ATENÇÃO** é preciso redirecionar o conteúdo do `cat`, caso contrário
+o conteúdo será mostrado na tela.
 
     % cat x* > arquivo
 
