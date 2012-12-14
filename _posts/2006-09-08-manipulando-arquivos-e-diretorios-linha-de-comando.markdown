@@ -10,6 +10,8 @@ categories: [linux, terminal, tools, unix]
 Uma pequena amostra poder dos terminais em ambiente Unix no gerenciamento de
 arquivos.
 
+![Files Containing Utility Bills](https://s3.amazonaws.com/dmitrynix.com/posts/MON084001.jpg)
+
 # Navegação
 
 ## pwd
