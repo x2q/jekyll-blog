@@ -7,6 +7,8 @@ meta-description: "Como dividir arquivos no terminal usando split e cat"
 categories: [split, terminal, tools, unix]
 ---
 
+![Split Paperclip](https://s3.amazonaws.com/dmitrynix.com/posts/42-20056819.jpg)
+
 As vezes é necessário que manipulemos arquivos grandes, mas o destino deles pode
 não comportar. Desta forma existe o comando `split` para dividir os arquivos e
 para recuperá-los um simples `cat`.
