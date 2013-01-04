@@ -73,7 +73,7 @@ Para ver as sessões abertas use o `tmux ls`:
 
 Para entrar numa sessão basta usar o comando `attach` e opcionalmente o
 parâmetro `-t` para escolher qual sessão deseja "se anexar" (nesse caso temos
-a sessão **0** e **1**:
+a sessão **0** e **1**):
 
     % tmux attach
 
