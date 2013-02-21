@@ -18,7 +18,7 @@ minhas formas de uso são:
 
 Vamos supor que está criando uma lib de criptografia (bem simples), como gosto
 de fazer é desenvolver pelo teste, normalmente, eu coloco todos os casos de uso
-que lembro, depois implemento cada teste e por fim o código em si:
+que lembro, depois implemento cada teste e por fim o código:
 
 ```ruby
 require './lib/crypt'
@@ -51,7 +51,7 @@ Finished in 0.0004 seconds
 # Quando o teste está quebrando
 
 Há vários motivos para um teste quebrar: pode ter mudado algo na
-interface/código, uma gem que vc depende está quebrando, …
+interface/código, uma gem que você usa está quebrando, …
 
 Mas e se seu teste estiver correto? Uma gem de terceiros pode estar quebrando,
 mas sua implementação de uso dela pode estar correta.
@@ -124,6 +124,8 @@ end
 
 ```
 
+E executando o teste:
+
 ```
 % rspec spec/crypt_spec.rb
 **
@@ -170,3 +172,48 @@ Note o `FIXED`.
 
 Basicamente: "Você esperava que esse teste estivesse quebrando, MAS foi
 corrigido". Agora pode-se remover o `pending`.
+
+## Usando o xit
+
+Outra forma de desativar o teste é usando o `xit` ao invés de `it`. Ele tem o
+mesmo efeito que usar o pending (sem bloco), mas sua saída é um pouco
+diferente.
+
+No nosso exemplo:
+
+```ruby
+require './lib/crypt'
+
+describe Crypt do
+  it 'encrypt' do
+    pending
+  end
+
+  xit 'decrypt'
+end
+```
+
+Executando:
+
+```
+% rspec spec/crypt_spec.rb
+**
+
+Pending:
+  Crypt encrypt
+    # No reason given
+    # ./spec/todo_spec.rb:4
+  Crypt decrypt
+    # Temporarily disabled with xit
+    # ./spec/todo_spec.rb:8
+
+Finished in 0.00049 seconds
+2 examples, 0 failures, 2 pending
+```
+
+`No reason given` é para o `pending` (sem bloco e sem motivo) e o `Temporarily
+disabled with xit` é para o uso do `xit`.
+
+Existem muitas formas de desativar blocos de teste, poderiamos até mesmo
+comentar! Mas quando você entrega seu código para outro desenvolvedor é bom
+manter o mais claro possível o motivo de um teste estar pendente.
